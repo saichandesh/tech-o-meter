@@ -4,9 +4,13 @@ import { View,
          StyleSheet, 
          ImageBackground, 
          StatusBar, 
-         TextInput, 
-         Button, 
-         TouchableNativeFeedback } from 'react-native';
+         TextInput,
+         TouchableNativeFeedback,
+         KeyboardAvoidingView,
+         TouchableWithoutFeedback,
+         Keyboard } from 'react-native';
+
+import { Button } from 'react-native-elements';
 
 import backgroundImage from '../../assests/background.png';
 
@@ -21,29 +25,44 @@ class LoginScreen extends Component{
 
     render(){
         return(
-            <ImageBackground source={backgroundImage} 
-                             style={styles.backgroundImage}>
-                <View>
-                <StatusBar backgroundColor="#04724b" 
-                           barStyle="dark-content" 
-                           translucent={true} />
-                    <View>
-                        <TextInput placeholder="Username" 
-                                   style={styles.inputText} 
-                                   underlineColorAndroid='transparent'/>
-                        <TextInput placeholder="Password" 
-                                   style={styles.inputText}
-                                   underlineColorAndroid='transparent'/>
-                        <TextInput placeholder="Password" 
-                                   style={styles.inputText}
-                                   underlineColorAndroid='transparent'/>
-                    </View>
-                    {/* <TouchableNativeFeedback onPress={this.onPressHandler}
-                    background={TouchableNativeFeedback.SelectableBackground()}>
-                    
-                    </TouchableNativeFeedback> */}
-                </View>
-             </ImageBackground>
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                <ImageBackground source={backgroundImage} 
+                                style={styles.backgroundImage}>
+                    <KeyboardAvoidingView behavior = "padding">
+                            <StatusBar backgroundColor="#04724b" 
+                                    barStyle="dark-content" 
+                                    translucent={true} />           
+                                <View>
+                                    <TextInput placeholder="Username" 
+                                            style={styles.inputText} 
+                                            underlineColorAndroid='transparent'
+                                            autoCapitalize = "none"
+                                            onSubmitEditing={(event) => { 
+                                                this.refs.SecondInput.focus(); 
+                                            }}/>
+                                    <TextInput ref='SecondInput'
+                                            placeholder="Password" 
+                                            style={styles.inputText}
+                                            underlineColorAndroid='transparent'
+                                            autoCapitalize = "none"
+                                            secureTextEntry = {true}
+                                            onSubmitEditing={(event) => { 
+                                                this.refs.ThirdInput.focus(); 
+                                            }}/>
+                                    <TextInput ref='ThirdInput'
+                                            placeholder="Cab Number" 
+                                            style={styles.inputText}
+                                            underlineColorAndroid='transparent'
+                                            autoCapitalize = "none"/>
+                                </View>
+                                <Button 
+                                    buttonStyle={styles.button}
+                                    textStyle={{textAlign: 'center'}}
+                                    title={`SIGN IN`}
+                                /> 
+                    </KeyboardAvoidingView>   
+                </ImageBackground>
+              </TouchableWithoutFeedback> 
         );
     }
 }
@@ -61,15 +80,20 @@ const styles = StyleSheet.create({
         alignItems : "center"
     },
     inputText:{
-        width: 320,
+        width: 300,
         marginTop : 20,
         borderWidth : 1,
         borderRadius : 30,
-        height : 45
+        height : 45,
+        borderColor : '#a2f2d1',
+        backgroundColor : '#a2f2d1',
+        paddingLeft : 20
+
     },
-    touchableContainer : {
+    button : {
+        backgroundColor: '#04724b', 
+        borderRadius: 10, 
         marginTop : 30,
-        backgroundColor : "#04724b"
     }
 });
 
