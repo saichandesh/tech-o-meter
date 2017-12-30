@@ -8,4 +8,4 @@
 
 ## Screenshot
 
-![test](./src/assests/screenshot.png=1000x5000)
+![test](./src/assests/screenshot.png | width = 100)
