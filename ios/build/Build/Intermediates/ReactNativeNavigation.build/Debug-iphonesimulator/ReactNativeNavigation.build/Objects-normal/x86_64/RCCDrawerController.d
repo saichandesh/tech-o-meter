@@ -1,0 +1,29 @@
+dependencies: \
+  /Users/sgurramkonda/tech-o-meter/node_modules/react-native-navigation/ios/RCCDrawerController/RCCDrawerController.m \
+  /Users/sgurramkonda/tech-o-meter/node_modules/react-native-navigation/ios/RCCDrawerController/RCCDrawerController.h \
+  /Users/sgurramkonda/tech-o-meter/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTBridge.h \
+  /Users/sgurramkonda/tech-o-meter/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTBridgeDelegate.h \
+  /Users/sgurramkonda/tech-o-meter/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTJavaScriptLoader.h \
+  /Users/sgurramkonda/tech-o-meter/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTDefines.h \
+  /Users/sgurramkonda/tech-o-meter/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTBridgeModule.h \
+  /Users/sgurramkonda/tech-o-meter/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTFrameUpdate.h \
+  /Users/sgurramkonda/tech-o-meter/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTInvalidating.h \
+  /Users/sgurramkonda/tech-o-meter/node_modules/react-native-navigation/ios/RCCDrawerController/MMDrawerController/MMDrawerController.h \
+  /Users/sgurramkonda/tech-o-meter/node_modules/react-native-navigation/ios/RCCDrawerController/RCCDrawerProtocol.h \
+  /Users/sgurramkonda/tech-o-meter/node_modules/react-native-navigation/ios/RCCViewController.h \
+  /Users/sgurramkonda/tech-o-meter/node_modules/react-native-navigation/ios/RCCDrawerController/MMDrawerController/MMExampleDrawerVisualStateManager.h \
+  /Users/sgurramkonda/tech-o-meter/node_modules/react-native-navigation/ios/RCCDrawerController/MMDrawerController/MMDrawerVisualState.h \
+  /Users/sgurramkonda/tech-o-meter/node_modules/react-native-navigation/ios/RCCDrawerController/RCCDrawerHelper.h \
+  /Users/sgurramkonda/tech-o-meter/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTConvert.h \
+  /Users/sgurramkonda/tech-o-meter/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTAnimationType.h \
+  /Users/sgurramkonda/tech-o-meter/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTBorderStyle.h \
+  /Users/sgurramkonda/tech-o-meter/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTLog.h \
+  /Users/sgurramkonda/tech-o-meter/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTAssert.h \
+  /Users/sgurramkonda/tech-o-meter/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTUtils.h \
+  /Users/sgurramkonda/tech-o-meter/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTPointerEvents.h \
+  /Users/sgurramkonda/tech-o-meter/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTTextDecorationLineType.h \
+  /Users/sgurramkonda/tech-o-meter/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/Yoga.h \
+  /Users/sgurramkonda/tech-o-meter/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/YGEnums.h \
+  /Users/sgurramkonda/tech-o-meter/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/YGMacros.h \
+  /Users/sgurramkonda/tech-o-meter/node_modules/react-native-navigation/ios/RCCManagerModule.h \
+  /Users/sgurramkonda/tech-o-meter/node_modules/react-native-navigation/ios/UIViewController+Rotation.h

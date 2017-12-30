@@ -1,21 +1,17 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Navigation } from 'react-native-navigation';
 
-export default class App extends React.Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text>Welcome to Tech-o-Meter</Text>
-      </View>
-    );
+import LoginScreen from './src/screens/Login/Login';
+
+// Register Screens
+Navigation.registerComponent("tech-o-meter.LoginScreen" , () => LoginScreen);
+
+//Start App
+Navigation.startSingleScreenApp({
+  screen: {
+    screen: 'tech-o-meter.LoginScreen',
+    title: '',
+    navigatorStyle: {
+      navBarHidden: true
+    }
   }
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
 });
