@@ -1,4 +1,4 @@
-# Tech-o-meter
+# tripOmeter
 ## Technologies
 
 > React Native<br/>
