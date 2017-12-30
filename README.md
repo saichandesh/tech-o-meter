@@ -7,5 +7,4 @@
 > MySQL
 
 ## Screenshot
-
-![test](./src/assests/screenshot.png = 300x500)
+![test](./src/assests/screenshot_image.png)
