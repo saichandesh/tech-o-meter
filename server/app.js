@@ -7,7 +7,7 @@ const router = require('./routes/router');
 const port = process.env.PORT || 8080;
 app.set('port', port);
 
-app.use('*',router);
+app.use('/',router); 
 
 app.listen(port, () => {
     console.log(`Listening on Port Number ${port}`);
