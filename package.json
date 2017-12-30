@@ -9,12 +9,12 @@
   },
   "scripts": {
     "start": "react-native start",
-    "preandroid" : "npm install",
+    "preandroid": "npm install",
     "android": "react-native run-android",
-    "preios" : "npm install",
+    "preios": "npm install",
     "ios": "react-native run-ios",
     "test": "node node_modules/jest/bin/jest.js --watch",
-    "preserver" : "npm i -g nodemon",
+    "preserver": "npm i -g nodemon",
     "server": "nodemon server/app.js"
   },
   "jest": {
@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "express": "^4.16.2",
+    "mysql": "^2.15.0",
     "react": "16.0.0",
     "react-native": "0.50.3"
   },
