@@ -8,10 +8,12 @@ import { View,
         TouchableOpacity,
         Platform } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import {connect } from 'react-redux';
 
 import startHome from '../Home/homeTab';
 import startFuelForm from '../FuelForm/fuelTab';
 import { Navigation } from 'react-native-navigation';
+import { validatedLogin } from '../../store/actions/index';
 
 class SideDrawerScreen extends Component{
 
@@ -51,6 +53,7 @@ class SideDrawerScreen extends Component{
             case 'Settings' :
                 break;
             case 'Sign Out':
+                this.props.onLogOut(false);
                 this.props.navigator.toggleDrawer({
                     side: 'left',
                     animated: true,
@@ -152,4 +155,10 @@ const styles = StyleSheet.create({
     }
 });
 
-export default SideDrawerScreen;
+const mapDispatchToProps = dispatch => {
+    return {
+        onLogOut : logout => dispatch(validatedLogin(logout))
+    }
+}
+
+export default connect(null, mapDispatchToProps)(SideDrawerScreen);

@@ -8,14 +8,17 @@ import { View,
          TouchableNativeFeedback,
          KeyboardAvoidingView,
          TouchableWithoutFeedback,
-         Keyboard } from 'react-native';
+         Keyboard,
+         ActivityIndicator,
+         Modal } from 'react-native';
 
 import { Button } from 'react-native-elements';
 import { connect } from 'react-redux';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 import backgroundImage from '../../assests/login_screen_no_icon.png';
 import startHome from '../Home/homeTab';
-import {loginUser} from '../../store/actions/index';
+import {loginUser, validatedLogin} from '../../store/actions/index';
 import Toast from 'react-native-simple-toast';
 
 class LoginScreen extends Component{
@@ -23,7 +26,8 @@ class LoginScreen extends Component{
     state = {
         userName: null,
         password : null,
-        cabNumber: null
+        cabNumber: null,
+        isLogging: false
     }
 
     static navigatorStyle = {
@@ -36,6 +40,13 @@ class LoginScreen extends Component{
         super(props);
     }
 
+    componentDidMount(){
+        console.log(this.props.isLoggedIn);
+        // if(nextProps.isLoggedIn){
+        //     startHome();
+        // }
+    }
+
     componentWillUpdate(nextProps, nextState){
         if(nextProps.isLoggedIn){
             startHome();
@@ -43,9 +54,25 @@ class LoginScreen extends Component{
     }
 
     onPressHandler = () => {
+
+        this.props.setLoggin(false);
+
+        this.setState(prevState => {
+            return{
+                ...prevState,
+                isLogging : true
+            }
+        });
+        
         if( this.state.userName == null || this.state.userName == '' 
             || this.state.password == null || this.state.password == ''
             || this.state.cabNumber == null || this.state.cabNumber == ''){
+                this.setState(prevState => {
+                    return{
+                        ...prevState,
+                        isLogging : false
+                    }
+                });
                 Toast.show('All Fields are required');
         }else{
             this.props.onLogin(this.state.userName, this.state.password, this.state.cabNumber);
@@ -56,12 +83,13 @@ class LoginScreen extends Component{
         return(
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <ImageBackground source={backgroundImage} 
-                                style={styles.backgroundImage}>
+                                 style={styles.backgroundImage}>                  
+                    <Spinner visible={this.state.isLogging} textContent={'Signing In'} textStyle={{color: '#FFF'}} />
                     <KeyboardAvoidingView behavior = "padding">
                             <StatusBar backgroundColor="#04724b" 
                                     barStyle="dark-content" 
-                                    translucent={true} />           
-                                <View>
+                                    translucent={true} />
+                                <View >
                                     <TextInput placeholder="Username" 
                                             style={styles.inputText} 
                                             underlineColorAndroid='transparent'
@@ -131,7 +159,8 @@ const styles = StyleSheet.create({
 
 const mapDispatchToProps = dispatch => {
     return {
-        onLogin : (UserName, password, cabNumber) => dispatch(loginUser(UserName, password, cabNumber))
+        onLogin : (UserName, password, cabNumber) => dispatch(loginUser(UserName, password, cabNumber)),
+        setLoggin : (loggedIn) => dispatch(validatedLogin(loggedIn))
     };
 }
 
