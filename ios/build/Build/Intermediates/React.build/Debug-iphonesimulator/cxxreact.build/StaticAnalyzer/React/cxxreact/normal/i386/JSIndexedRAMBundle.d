@@ -1,20 +1,13 @@
 dependencies: \
   /Users/sgurramkonda/tech-o-meter/node_modules/react-native/ReactCommon/cxxreact/JSIndexedRAMBundle.cpp \
   /Users/sgurramkonda/tech-o-meter/node_modules/react-native/ReactCommon/cxxreact/JSIndexedRAMBundle.h \
-  /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/../ReactCommon/cxxreact/JSBigString.h \
-  /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/../third-party/folly-2016.09.26.00/folly/Exception.h \
-  /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/../third-party/folly-2016.09.26.00/folly/Conv.h \
-  /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/../third-party/boost_1_63_0/boost/implicit_cast.hpp \
-  /Users/sgurramkonda/tech-o-meter/ios/build/Build/Products/Debug-iphonesimulator/include/double-conversion/double-conversion.h \
-  /Users/sgurramkonda/tech-o-meter/ios/build/Build/Products/Debug-iphonesimulator/include/double-conversion/utils.h \
-  /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/../third-party/folly-2016.09.26.00/folly/Demangle.h \
-  /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/../third-party/folly-2016.09.26.00/folly/FBString.h \
+  /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/../ReactCommon/cxxreact/JSModulesUnbundle.h \
+  /Users/sgurramkonda/tech-o-meter/ios/build/Build/Products/Debug-iphonesimulator/include/jschelpers/noncopyable.h \
+  /Users/sgurramkonda/tech-o-meter/node_modules/react-native/ReactCommon/cxxreact/oss-compat-util.h \
+  /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/../third-party/folly-2016.09.26.00/folly/Bits.h \
   /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/../third-party/folly-2016.09.26.00/folly/Portability.h \
   /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/../third-party/folly-2016.09.26.00/folly/portability/Config.h \
   /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/../third-party/folly-2016.09.26.00/folly/CPortability.h \
-  /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/../third-party/folly-2016.09.26.00/folly/Hash.h \
-  /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/../third-party/folly-2016.09.26.00/folly/ApplyTuple.h \
-  /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/../third-party/folly-2016.09.26.00/folly/Bits.h \
   /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/../third-party/folly-2016.09.26.00/folly/portability/Builtins.h \
   /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/../third-party/folly-2016.09.26.00/folly/Assume.h \
   /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/../third-party/folly-2016.09.26.00/folly/detail/BitsDetail.h \
@@ -225,6 +218,14 @@ dependencies: \
   /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/../third-party/boost_1_63_0/boost/mpl/aux_/preprocessed/gcc/full_lambda.hpp \
   /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/../third-party/boost_1_63_0/boost/mpl/aux_/preprocessed/gcc/apply.hpp \
   /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/../third-party/folly-2016.09.26.00/folly/Likely.h \
+  /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/../third-party/folly-2016.09.26.00/folly/Conv.h \
+  /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/../third-party/boost_1_63_0/boost/implicit_cast.hpp \
+  /Users/sgurramkonda/tech-o-meter/ios/build/Build/Products/Debug-iphonesimulator/include/double-conversion/double-conversion.h \
+  /Users/sgurramkonda/tech-o-meter/ios/build/Build/Products/Debug-iphonesimulator/include/double-conversion/utils.h \
+  /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/../third-party/folly-2016.09.26.00/folly/Demangle.h \
+  /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/../third-party/folly-2016.09.26.00/folly/FBString.h \
+  /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/../third-party/folly-2016.09.26.00/folly/Hash.h \
+  /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/../third-party/folly-2016.09.26.00/folly/ApplyTuple.h \
   /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/../third-party/folly-2016.09.26.00/folly/SpookyHashV1.h \
   /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/../third-party/folly-2016.09.26.00/folly/SpookyHashV2.h \
   /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/../third-party/folly-2016.09.26.00/folly/Malloc.h \
@@ -355,6 +356,5 @@ dependencies: \
   /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/../third-party/folly-2016.09.26.00/folly/detail/RangeCommon.h \
   /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/../third-party/folly-2016.09.26.00/folly/detail/RangeSse42.h \
   /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/../third-party/folly-2016.09.26.00/folly/portability/Math.h \
-  /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/../ReactCommon/cxxreact/JSModulesUnbundle.h \
-  /Users/sgurramkonda/tech-o-meter/ios/build/Build/Products/Debug-iphonesimulator/include/jschelpers/noncopyable.h \
-  /Users/sgurramkonda/tech-o-meter/node_modules/react-native/ReactCommon/cxxreact/oss-compat-util.h
+  /Users/sgurramkonda/tech-o-meter/node_modules/react-native/ReactCommon/cxxreact/JSBigString.h \
+  /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/../third-party/folly-2016.09.26.00/folly/Exception.h

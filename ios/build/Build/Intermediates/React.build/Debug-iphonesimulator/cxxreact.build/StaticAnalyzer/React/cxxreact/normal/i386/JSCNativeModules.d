@@ -380,6 +380,5 @@ dependencies: \
   /Users/sgurramkonda/tech-o-meter/ios/build/Build/Products/Debug-iphonesimulator/include/jschelpers/JSCWrapper.h \
   /Users/sgurramkonda/tech-o-meter/ios/build/Build/Products/Debug-iphonesimulator/include/jschelpers/Unicode.h \
   /Users/sgurramkonda/tech-o-meter/ios/build/Build/Products/Debug-iphonesimulator/include/jschelpers/noncopyable.h \
-  /Users/sgurramkonda/tech-o-meter/ios/build/Build/Products/Debug-iphonesimulator/include/privatedata/PrivateDataBase.h \
   /Users/sgurramkonda/tech-o-meter/node_modules/react-native/ReactCommon/cxxreact/Platform.h \
   /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/../ReactCommon/cxxreact/MessageQueueThread.h

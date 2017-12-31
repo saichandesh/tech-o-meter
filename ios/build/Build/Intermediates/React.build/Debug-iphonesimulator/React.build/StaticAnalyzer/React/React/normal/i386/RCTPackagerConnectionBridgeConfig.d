@@ -9,7 +9,6 @@ dependencies: \
   /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/Base/RCTBridgeModule.h \
   /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/Base/RCTFrameUpdate.h \
   /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/Base/RCTInvalidating.h \
-  /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/Base/RCTBundleURLProvider.h \
   /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/Base/RCTJSEnvironment.h \
   /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/DevSupport/RCTReloadPackagerMethod.h \
   /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/DevSupport/RCTPackagerClient.h \

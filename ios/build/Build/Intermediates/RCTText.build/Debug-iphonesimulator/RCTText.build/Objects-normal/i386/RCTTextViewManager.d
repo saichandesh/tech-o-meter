@@ -32,6 +32,4 @@ dependencies: \
   /Users/sgurramkonda/tech-o-meter/node_modules/react-native/Libraries/Text/RCTTextView.h \
   /Users/sgurramkonda/tech-o-meter/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTView.h \
   /Users/sgurramkonda/tech-o-meter/node_modules/react-native/Libraries/Text/RCTTextInput.h \
-  /Users/sgurramkonda/tech-o-meter/node_modules/react-native/Libraries/Text/RCTBackedTextInputViewProtocol.h \
-  /Users/sgurramkonda/tech-o-meter/node_modules/react-native/Libraries/Text/RCTFontAttributes.h \
-  /Users/sgurramkonda/tech-o-meter/node_modules/react-native/Libraries/Text/RCTFontAttributesDelegate.h
+  /Users/sgurramkonda/tech-o-meter/node_modules/react-native/Libraries/Text/RCTBackedTextInputViewProtocol.h
