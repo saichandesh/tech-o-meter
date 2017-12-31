@@ -25,6 +25,5 @@ dependencies: \
   /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/Views/RCTShadowView.h \
   /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/Base/RCTRootView.h \
   /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/Modules/RCTUIManager.h \
-  /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/Modules/RCTUIManagerUtils.h \
   /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/Views/RCTView.h \
   /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/Views/RCTConvert+Transform.h

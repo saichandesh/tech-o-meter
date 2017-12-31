@@ -9,11 +9,9 @@
 
 #pragma once
 
-#include <functional>
 #include <memory>
 #include <string>
 #include <vector>
-
 #include <JavaScriptCore/JSBase.h>
 
 namespace facebook {
@@ -46,7 +44,7 @@ public:
 // Note: not destructible!
 class IInspector {
 public:
-  virtual void registerGlobalContext(const std::string& title, const std::function<bool()> &checkIsInspectedRemote, JSGlobalContextRef ctx) = 0;
+  virtual void registerGlobalContext(std::string title, JSGlobalContextRef ctx) = 0;
   virtual void unregisterGlobalContext(JSGlobalContextRef ctx) = 0;
 
   virtual std::vector<InspectorPage> getPages() const = 0;

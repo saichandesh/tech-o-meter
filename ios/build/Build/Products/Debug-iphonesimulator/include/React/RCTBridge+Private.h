@@ -35,9 +35,6 @@ RCT_EXTERN void RCTVerifyAllModulesExported(NSArray *extraModules);
 @property (nonatomic, assign) CFMutableDictionaryRef flowIDMap;
 @property (nonatomic, strong) NSLock *flowIDMapLock;
 
-// Used by RCTDevMenu
-@property (nonatomic, copy) NSString *bridgeDescription;
-
 + (instancetype)currentBridge;
 + (void)setCurrentBridge:(RCTBridge *)bridge;
 

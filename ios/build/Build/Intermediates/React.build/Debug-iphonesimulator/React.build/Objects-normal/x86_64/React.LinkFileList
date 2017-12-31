@@ -1,5 +1,4 @@
 /Users/sgurramkonda/tech-o-meter/ios/build/Build/Intermediates/React.build/Debug-iphonesimulator/React.build/Objects-normal/x86_64/RCTCxxMethod.o
-/Users/sgurramkonda/tech-o-meter/ios/build/Build/Intermediates/React.build/Debug-iphonesimulator/React.build/Objects-normal/x86_64/RCTUIManagerUtils.o
 /Users/sgurramkonda/tech-o-meter/ios/build/Build/Intermediates/React.build/Debug-iphonesimulator/React.build/Objects-normal/x86_64/RCTShadowView+Internal.o
 /Users/sgurramkonda/tech-o-meter/ios/build/Build/Intermediates/React.build/Debug-iphonesimulator/React.build/Objects-normal/x86_64/RCTScrollContentViewManager.o
 /Users/sgurramkonda/tech-o-meter/ios/build/Build/Intermediates/React.build/Debug-iphonesimulator/React.build/Objects-normal/x86_64/RCTStatusBarManager.o
@@ -14,7 +13,6 @@
 /Users/sgurramkonda/tech-o-meter/ios/build/Build/Intermediates/React.build/Debug-iphonesimulator/React.build/Objects-normal/x86_64/RCTMaskedViewManager.o
 /Users/sgurramkonda/tech-o-meter/ios/build/Build/Intermediates/React.build/Debug-iphonesimulator/React.build/Objects-normal/x86_64/RCTJSStackFrame.o
 /Users/sgurramkonda/tech-o-meter/ios/build/Build/Intermediates/React.build/Debug-iphonesimulator/React.build/Objects-normal/x86_64/RCTObjcExecutor.o
-/Users/sgurramkonda/tech-o-meter/ios/build/Build/Intermediates/React.build/Debug-iphonesimulator/React.build/Objects-normal/x86_64/RCTSafeAreaViewManager.o
 /Users/sgurramkonda/tech-o-meter/ios/build/Build/Intermediates/React.build/Debug-iphonesimulator/React.build/Objects-normal/x86_64/RCTConvert.o
 /Users/sgurramkonda/tech-o-meter/ios/build/Build/Intermediates/React.build/Debug-iphonesimulator/React.build/Objects-normal/x86_64/RCTSegmentedControl.o
 /Users/sgurramkonda/tech-o-meter/ios/build/Build/Intermediates/React.build/Debug-iphonesimulator/React.build/Objects-normal/x86_64/RCTRootView.o
@@ -37,7 +35,6 @@
 /Users/sgurramkonda/tech-o-meter/ios/build/Build/Intermediates/React.build/Debug-iphonesimulator/React.build/Objects-normal/x86_64/RCTPackagerClient.o
 /Users/sgurramkonda/tech-o-meter/ios/build/Build/Intermediates/React.build/Debug-iphonesimulator/React.build/Objects-normal/x86_64/RCTSwitch.o
 /Users/sgurramkonda/tech-o-meter/ios/build/Build/Intermediates/React.build/Debug-iphonesimulator/React.build/Objects-normal/x86_64/RCTMessageThread.o
-/Users/sgurramkonda/tech-o-meter/ios/build/Build/Intermediates/React.build/Debug-iphonesimulator/React.build/Objects-normal/x86_64/RCTSafeAreaShadowView.o
 /Users/sgurramkonda/tech-o-meter/ios/build/Build/Intermediates/React.build/Debug-iphonesimulator/React.build/Objects-normal/x86_64/RCTDisplayLink.o
 /Users/sgurramkonda/tech-o-meter/ios/build/Build/Intermediates/React.build/Debug-iphonesimulator/React.build/Objects-normal/x86_64/RCTSwitchManager.o
 /Users/sgurramkonda/tech-o-meter/ios/build/Build/Intermediates/React.build/Debug-iphonesimulator/React.build/Objects-normal/x86_64/RCTActivityIndicatorViewManager.o
@@ -81,7 +78,6 @@
 /Users/sgurramkonda/tech-o-meter/ios/build/Build/Intermediates/React.build/Debug-iphonesimulator/React.build/Objects-normal/x86_64/RCTLog.o
 /Users/sgurramkonda/tech-o-meter/ios/build/Build/Intermediates/React.build/Debug-iphonesimulator/React.build/Objects-normal/x86_64/RCTNavItemManager.o
 /Users/sgurramkonda/tech-o-meter/ios/build/Build/Intermediates/React.build/Debug-iphonesimulator/React.build/Objects-normal/x86_64/RCTParserUtils.o
-/Users/sgurramkonda/tech-o-meter/ios/build/Build/Intermediates/React.build/Debug-iphonesimulator/React.build/Objects-normal/x86_64/RCTSafeAreaViewLocalData.o
 /Users/sgurramkonda/tech-o-meter/ios/build/Build/Intermediates/React.build/Debug-iphonesimulator/React.build/Objects-normal/x86_64/RCTView.o
 /Users/sgurramkonda/tech-o-meter/ios/build/Build/Intermediates/React.build/Debug-iphonesimulator/React.build/Objects-normal/x86_64/RCTPlatform.o
 /Users/sgurramkonda/tech-o-meter/ios/build/Build/Intermediates/React.build/Debug-iphonesimulator/React.build/Objects-normal/x86_64/RCTKeyboardObserver.o
@@ -104,7 +100,6 @@
 /Users/sgurramkonda/tech-o-meter/ios/build/Build/Intermediates/React.build/Debug-iphonesimulator/React.build/Objects-normal/x86_64/RCTTabBarItem.o
 /Users/sgurramkonda/tech-o-meter/ios/build/Build/Intermediates/React.build/Debug-iphonesimulator/React.build/Objects-normal/x86_64/RCTModalHostView.o
 /Users/sgurramkonda/tech-o-meter/ios/build/Build/Intermediates/React.build/Debug-iphonesimulator/React.build/Objects-normal/x86_64/RCTShadowView.o
-/Users/sgurramkonda/tech-o-meter/ios/build/Build/Intermediates/React.build/Debug-iphonesimulator/React.build/Objects-normal/x86_64/PrivateDataBase.o
 /Users/sgurramkonda/tech-o-meter/ios/build/Build/Intermediates/React.build/Debug-iphonesimulator/React.build/Objects-normal/x86_64/RCTProfileTrampoline-arm.o
 /Users/sgurramkonda/tech-o-meter/ios/build/Build/Intermediates/React.build/Debug-iphonesimulator/React.build/Objects-normal/x86_64/RCTSegmentedControlManager.o
 /Users/sgurramkonda/tech-o-meter/ios/build/Build/Intermediates/React.build/Debug-iphonesimulator/React.build/Objects-normal/x86_64/RCTPickerManager.o
@@ -119,7 +114,6 @@
 /Users/sgurramkonda/tech-o-meter/ios/build/Build/Intermediates/React.build/Debug-iphonesimulator/React.build/Objects-normal/x86_64/RCTRedBox.o
 /Users/sgurramkonda/tech-o-meter/ios/build/Build/Intermediates/React.build/Debug-iphonesimulator/React.build/Objects-normal/x86_64/RCTJSCErrorHandling.o
 /Users/sgurramkonda/tech-o-meter/ios/build/Build/Intermediates/React.build/Debug-iphonesimulator/React.build/Objects-normal/x86_64/InspectorInterfaces.o
-/Users/sgurramkonda/tech-o-meter/ios/build/Build/Intermediates/React.build/Debug-iphonesimulator/React.build/Objects-normal/x86_64/RCTSafeAreaView.o
 /Users/sgurramkonda/tech-o-meter/ios/build/Build/Intermediates/React.build/Debug-iphonesimulator/React.build/Objects-normal/x86_64/RCTModalHostViewController.o
 /Users/sgurramkonda/tech-o-meter/ios/build/Build/Intermediates/React.build/Debug-iphonesimulator/React.build/Objects-normal/x86_64/RCTNavItem.o
 /Users/sgurramkonda/tech-o-meter/ios/build/Build/Intermediates/React.build/Debug-iphonesimulator/React.build/Objects-normal/x86_64/RCTEventDispatcher.o
@@ -130,4 +124,3 @@
 /Users/sgurramkonda/tech-o-meter/ios/build/Build/Intermediates/React.build/Debug-iphonesimulator/React.build/Objects-normal/x86_64/RCTProfile.o
 /Users/sgurramkonda/tech-o-meter/ios/build/Build/Intermediates/React.build/Debug-iphonesimulator/React.build/Objects-normal/x86_64/RCTComponentData.o
 /Users/sgurramkonda/tech-o-meter/ios/build/Build/Intermediates/React.build/Debug-iphonesimulator/React.build/Objects-normal/x86_64/RCTNavigatorManager.o
-/Users/sgurramkonda/tech-o-meter/ios/build/Build/Intermediates/React.build/Debug-iphonesimulator/React.build/Objects-normal/x86_64/RCTModalManager.o

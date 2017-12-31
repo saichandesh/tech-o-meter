@@ -404,7 +404,6 @@ dependencies: \
   /Users/sgurramkonda/tech-o-meter/ios/build/Build/Products/Debug-iphonesimulator/include/jschelpers/JSCWrapper.h \
   /Users/sgurramkonda/tech-o-meter/ios/build/Build/Products/Debug-iphonesimulator/include/jschelpers/Unicode.h \
   /Users/sgurramkonda/tech-o-meter/ios/build/Build/Products/Debug-iphonesimulator/include/jschelpers/noncopyable.h \
-  /Users/sgurramkonda/tech-o-meter/ios/build/Build/Products/Debug-iphonesimulator/include/privatedata/PrivateDataBase.h \
   /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/../third-party/folly-2016.09.26.00/folly/json.h \
   /Users/sgurramkonda/tech-o-meter/ios/build/Build/Products/Debug-iphonesimulator/include/jschelpers/JSCHelpers.h \
   /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/Modules/RCTDevSettings.h \
@@ -421,13 +420,11 @@ dependencies: \
   /Users/sgurramkonda/tech-o-meter/ios/build/Build/Products/Debug-iphonesimulator/include/cxxreact/NativeToJsBridge.h \
   /Users/sgurramkonda/tech-o-meter/ios/build/Build/Products/Debug-iphonesimulator/include/cxxreact/JSBundleType.h \
   /Users/sgurramkonda/tech-o-meter/ios/build/Build/Products/Debug-iphonesimulator/include/cxxreact/JSIndexedRAMBundle.h \
-  /Users/sgurramkonda/tech-o-meter/ios/build/Build/Products/Debug-iphonesimulator/include/cxxreact/JSBigString.h \
   /Users/sgurramkonda/tech-o-meter/ios/build/Build/Products/Debug-iphonesimulator/include/cxxreact/JSModulesUnbundle.h \
-  /Users/sgurramkonda/tech-o-meter/ios/build/Build/Products/Debug-iphonesimulator/include/cxxreact/JSIndexedRAMBundleRegistry.h \
-  /Users/sgurramkonda/tech-o-meter/ios/build/Build/Products/Debug-iphonesimulator/include/cxxreact/RAMBundleRegistry.h \
   /Users/sgurramkonda/tech-o-meter/ios/build/Build/Products/Debug-iphonesimulator/include/cxxreact/Platform.h \
   /Users/sgurramkonda/tech-o-meter/ios/build/Build/Products/Debug-iphonesimulator/include/cxxreact/MessageQueueThread.h \
   /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/CxxBridge/NSDataBigString.h \
+  /Users/sgurramkonda/tech-o-meter/ios/build/Build/Products/Debug-iphonesimulator/include/cxxreact/JSBigString.h \
   /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/CxxBridge/RCTJSCHelpers.h \
   /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/CxxBridge/RCTMessageThread.h \
   /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/Base/RCTJavaScriptExecutor.h \

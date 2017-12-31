@@ -6,9 +6,6 @@ dependencies: \
   /Users/sgurramkonda/tech-o-meter/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTComponent.h \
   /Users/sgurramkonda/tech-o-meter/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTPointerEvents.h \
   /Users/sgurramkonda/tech-o-meter/node_modules/react-native/Libraries/Text/RCTBackedTextInputViewProtocol.h \
-  /Users/sgurramkonda/tech-o-meter/node_modules/react-native/Libraries/Text/RCTFontAttributes.h \
-  /Users/sgurramkonda/tech-o-meter/node_modules/react-native/Libraries/Text/RCTFontAttributesDelegate.h \
-  /Users/sgurramkonda/tech-o-meter/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTAccessibilityManager.h \
   /Users/sgurramkonda/tech-o-meter/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTBridge.h \
   /Users/sgurramkonda/tech-o-meter/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTBridgeDelegate.h \
   /Users/sgurramkonda/tech-o-meter/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTJavaScriptLoader.h \

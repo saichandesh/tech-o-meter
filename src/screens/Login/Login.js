@@ -13,14 +13,22 @@ import { View,
 import { Button } from 'react-native-elements';
 
 import backgroundImage from '../../assests/background.png';
+import startHome from '../Home/homeTab';
 
 class LoginScreen extends Component{
+
+    static navigatorStyle = {
+        statusBarTextColorScheme: 'dark',
+        statusBarColor: '#04724b',
+        navBarHidden : true
+    }
+
     constructor(props){
         super(props);
     }
 
-    onPressHandler() {
-
+    onPressHandler = () => {
+        startHome();
     }
 
     render(){
@@ -55,10 +63,10 @@ class LoginScreen extends Component{
                                             underlineColorAndroid='transparent'
                                             autoCapitalize = "none"/>
                                 </View>
-                                <Button 
-                                    buttonStyle={styles.button}
-                                    textStyle={{textAlign: 'center'}}
-                                    title={`SIGN IN`}
+                                <Button onPress={this.onPressHandler}
+                                        buttonStyle={styles.button}
+                                        textStyle={{textAlign: 'center'}}
+                                        title={`SIGN IN`}
                                 /> 
                     </KeyboardAvoidingView>   
                 </ImageBackground>

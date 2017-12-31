@@ -12,7 +12,6 @@
 #import <React/RCTEventEmitter.h>
 #import <React/RCTUIManager.h>
 #import <React/RCTUIManagerObserverCoordinator.h>
-#import <React/RCTUIManagerUtils.h>
 
 #import "RCTValueAnimatedNode.h"
 

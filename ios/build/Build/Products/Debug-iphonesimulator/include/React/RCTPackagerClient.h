@@ -16,15 +16,10 @@
 
 extern const int RCT_PACKAGER_CLIENT_PROTOCOL_VERSION;
 
-@protocol RCTPackagerClientMethod <NSObject>
+@protocol RCTPackagerClientMethod
 
 - (void)handleRequest:(id)params withResponder:(RCTPackagerClientResponder *)responder;
 - (void)handleNotification:(id)params;
-
-@optional
-
-/** By default object will receive its methods on the main queue, unless this method is overriden. */
-- (dispatch_queue_t)methodQueue;
 
 @end
 
