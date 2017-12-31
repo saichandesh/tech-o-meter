@@ -36,6 +36,12 @@ class LoginScreen extends Component{
         super(props);
     }
 
+    componentWillUpdate(nextProps, nextState){
+        if(nextProps.isLoggedIn){
+            startHome();
+        }
+    }
+
     onPressHandler = () => {
         if( this.state.userName == null || this.state.userName == '' 
             || this.state.password == null || this.state.password == ''
@@ -43,7 +49,6 @@ class LoginScreen extends Component{
                 Toast.show('All Fields are required');
         }else{
             this.props.onLogin(this.state.userName, this.state.password, this.state.cabNumber);
-            //startHome();
         }
     }
 

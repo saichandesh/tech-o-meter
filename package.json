@@ -13,7 +13,6 @@
     "android": "react-native run-android",
     "preios": "npm install",
     "ios": "react-native run-ios",
-    "test": "node node_modules/jest/bin/jest.js --watch",
     "preserver": "npm i -g nodemon",
     "server": "nodemon server/app.js"
   },
@@ -30,7 +29,8 @@
     "react-native-simple-toast": "0.0.7",
     "react-native-vector-icons": "^4.4.3",
     "react-redux": "^5.0.6",
-    "redux": "^3.7.2"
+    "redux": "^3.7.2",
+    "redux-thunk": "^2.2.0"
   },
   "author": "Sai Chandesh Gurramkonda"
 }

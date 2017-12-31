@@ -1,11 +1,20 @@
 import { LOGIN_USER, GET_USER} from './actionTypes';
 
-export const loginUser = (userName, password, cabNumber) => {
-    let isLoggedIn = false;
-
+export const validatedLogin = isLoggedIn => {
     return {
         type : LOGIN_USER,
         isLoggedIn : isLoggedIn
+    }
+}
+
+export const loginUser = (userName, password, cabNumber) => {
+    let isLoggedIn = false;
+
+    return dispatch => {
+        setTimeout(() => {
+            isLoggedIn = true;
+            dispatch(validatedLogin(isLoggedIn));
+        }, 2000);
     }
 }
 
