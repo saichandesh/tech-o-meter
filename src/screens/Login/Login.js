@@ -11,11 +11,20 @@ import { View,
          Keyboard } from 'react-native';
 
 import { Button } from 'react-native-elements';
+import { connect } from 'react-redux';
 
-import backgroundImage from '../../assests/background.png';
+import backgroundImage from '../../assests/login_screen_no_icon.png';
 import startHome from '../Home/homeTab';
+import {loginUser} from '../../store/actions/index';
+import Toast from 'react-native-simple-toast';
 
 class LoginScreen extends Component{
+
+    state = {
+        userName: null,
+        password : null,
+        cabNumber: null
+    }
 
     static navigatorStyle = {
         statusBarTextColorScheme: 'dark',
@@ -28,7 +37,14 @@ class LoginScreen extends Component{
     }
 
     onPressHandler = () => {
-        startHome();
+        if( this.state.userName == null || this.state.userName == '' 
+            || this.state.password == null || this.state.password == ''
+            || this.state.cabNumber == null || this.state.cabNumber == ''){
+                Toast.show('All Fields are required');
+        }else{
+            this.props.onLogin(this.state.userName, this.state.password, this.state.cabNumber);
+            //startHome();
+        }
     }
 
     render(){
@@ -47,7 +63,8 @@ class LoginScreen extends Component{
                                             autoCapitalize = "none"
                                             onSubmitEditing={(event) => { 
                                                 this.refs.SecondInput.focus(); 
-                                            }}/>
+                                            }}
+                                            onChangeText={(text) => this.setState({userName:text})}/>
                                     <TextInput ref='SecondInput'
                                             placeholder="Password" 
                                             style={styles.inputText}
@@ -56,12 +73,14 @@ class LoginScreen extends Component{
                                             secureTextEntry = {true}
                                             onSubmitEditing={(event) => { 
                                                 this.refs.ThirdInput.focus(); 
-                                            }}/>
+                                            }}
+                                            onChangeText={(text) => this.setState({password:text})}/>
                                     <TextInput ref='ThirdInput'
                                             placeholder="Cab Number" 
                                             style={styles.inputText}
                                             underlineColorAndroid='transparent'
-                                            autoCapitalize = "none"/>
+                                            autoCapitalize = "none"
+                                            onChangeText={(text) => this.setState({cabNumber:text})}/>
                                 </View>
                                 <Button onPress={this.onPressHandler}
                                         buttonStyle={styles.button}
@@ -105,4 +124,16 @@ const styles = StyleSheet.create({
     }
 });
 
-export default LoginScreen;
+const mapDispatchToProps = dispatch => {
+    return {
+        onLogin : (UserName, password, cabNumber) => dispatch(loginUser(UserName, password, cabNumber))
+    };
+}
+
+const mapStateToProps = state => {
+    return {
+        isLoggedIn : state.user.isLoggedIn
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);

@@ -7,8 +7,6 @@ dependencies: \
   /Users/sgurramkonda/tech-o-meter/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTPointerEvents.h \
   /Users/sgurramkonda/tech-o-meter/node_modules/react-native/Libraries/Text/RCTTextInput.h \
   /Users/sgurramkonda/tech-o-meter/node_modules/react-native/Libraries/Text/RCTBackedTextInputViewProtocol.h \
-  /Users/sgurramkonda/tech-o-meter/node_modules/react-native/Libraries/Text/RCTFontAttributes.h \
-  /Users/sgurramkonda/tech-o-meter/node_modules/react-native/Libraries/Text/RCTFontAttributesDelegate.h \
   /Users/sgurramkonda/tech-o-meter/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTBridge.h \
   /Users/sgurramkonda/tech-o-meter/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTBridgeDelegate.h \
   /Users/sgurramkonda/tech-o-meter/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTJavaScriptLoader.h \
@@ -26,7 +24,6 @@ dependencies: \
   /Users/sgurramkonda/tech-o-meter/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/YGEnums.h \
   /Users/sgurramkonda/tech-o-meter/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/YGMacros.h \
   /Users/sgurramkonda/tech-o-meter/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTEventDispatcher.h \
-  /Users/sgurramkonda/tech-o-meter/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTFont.h \
   /Users/sgurramkonda/tech-o-meter/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTUIManager.h \
   /Users/sgurramkonda/tech-o-meter/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTRootView.h \
   /Users/sgurramkonda/tech-o-meter/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTViewManager.h \

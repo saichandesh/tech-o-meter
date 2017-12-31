@@ -41,5 +41,4 @@ dependencies: \
   /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/Base/RCTRootViewInternal.h \
   /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/Views/RCTScrollableProtocol.h \
   /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/Views/RCTShadowView+Internal.h \
-  /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/Modules/RCTUIManagerObserverCoordinator.h \
-  /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/Modules/RCTUIManagerUtils.h
+  /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/Modules/RCTUIManagerObserverCoordinator.h

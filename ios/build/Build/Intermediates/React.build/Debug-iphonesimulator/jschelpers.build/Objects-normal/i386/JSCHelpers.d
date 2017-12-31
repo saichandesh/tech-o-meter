@@ -375,5 +375,4 @@ dependencies: \
   /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/../third-party/folly-2016.09.26.00/folly/Exception.h \
   /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/../third-party/folly-2016.09.26.00/folly/portability/Windows.h \
   /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/../ReactCommon/jschelpers/Unicode.h \
-  /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/../ReactCommon/jschelpers/noncopyable.h \
-  /Users/sgurramkonda/tech-o-meter/ios/build/Build/Products/Debug-iphonesimulator/include/privatedata/PrivateDataBase.h
+  /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/../ReactCommon/jschelpers/noncopyable.h

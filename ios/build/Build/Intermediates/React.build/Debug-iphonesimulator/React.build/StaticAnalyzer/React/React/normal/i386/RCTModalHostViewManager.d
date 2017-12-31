@@ -26,7 +26,5 @@ dependencies: \
   /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/Views/RCTModalHostView.h \
   /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/Views/RCTView.h \
   /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/Views/RCTModalHostViewController.h \
-  /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/Views/RCTModalManager.h \
-  /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/Modules/RCTEventEmitter.h \
   /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/Views/RCTShadowView.h \
   /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/Base/RCTRootView.h

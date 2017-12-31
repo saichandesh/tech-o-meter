@@ -381,7 +381,6 @@ dependencies: \
   /Users/sgurramkonda/tech-o-meter/ios/build/Build/Products/Debug-iphonesimulator/include/jschelpers/JSCWrapper.h \
   /Users/sgurramkonda/tech-o-meter/ios/build/Build/Products/Debug-iphonesimulator/include/jschelpers/Unicode.h \
   /Users/sgurramkonda/tech-o-meter/ios/build/Build/Products/Debug-iphonesimulator/include/jschelpers/noncopyable.h \
-  /Users/sgurramkonda/tech-o-meter/ios/build/Build/Products/Debug-iphonesimulator/include/privatedata/PrivateDataBase.h \
   /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/../third-party/folly-2016.09.26.00/folly/json.h \
   /Users/sgurramkonda/tech-o-meter/ios/build/Build/Products/Debug-iphonesimulator/include/jschelpers/JSCHelpers.h \
   /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/../third-party/folly-2016.09.26.00/folly/Memory.h \
@@ -397,6 +396,5 @@ dependencies: \
   /Users/sgurramkonda/tech-o-meter/node_modules/react-native/ReactCommon/cxxreact/JSModulesUnbundle.h \
   /Users/sgurramkonda/tech-o-meter/node_modules/react-native/ReactCommon/cxxreact/Platform.h \
   /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/../ReactCommon/cxxreact/MessageQueueThread.h \
-  /Users/sgurramkonda/tech-o-meter/node_modules/react-native/ReactCommon/cxxreact/RAMBundleRegistry.h \
   /Users/sgurramkonda/tech-o-meter/node_modules/react-native/ReactCommon/cxxreact/RecoverableError.h \
   /Users/sgurramkonda/tech-o-meter/node_modules/react-native/ReactCommon/cxxreact/SystraceSection.h

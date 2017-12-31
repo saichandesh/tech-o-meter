@@ -1,5 +1,5 @@
 dependencies: \
-  /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/Modules/RCTUIManagerObserverCoordinator.mm \
+  /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/Modules/RCTUIManagerObserverCoordinator.m \
   /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/Modules/RCTUIManagerObserverCoordinator.h \
   /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/Views/RCTViewManager.h \
   /Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/Base/RCTBridgeModule.h \
