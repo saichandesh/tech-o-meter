@@ -6,7 +6,8 @@ import { View,
         FlatList,
         TouchableNativeFeedback,
         TouchableOpacity,
-        Platform } from 'react-native';
+        Platform,
+        AsyncStorage } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {connect } from 'react-redux';
 
@@ -59,22 +60,26 @@ class SideDrawerScreen extends Component{
                     animated: true,
                     to: 'closed'
                 });
-                if(Platform.OS == 'ios'){
-                    Navigation.startSingleScreenApp({
-                        screen: {
-                          screen: 'tripOmeter.LoginScreen',
-                          title: '',
-                          navigatorStyle: {
-                            navBarHidden: true
-                          }
+                AsyncStorage.setItem('userLogged', 'false', (err) => {
+                    if(!err){
+                        if(Platform.OS == 'ios'){
+                            Navigation.startSingleScreenApp({
+                                screen: {
+                                    screen: 'tripOmeter.LoginScreen',
+                                    title: '',
+                                    navigatorStyle: {
+                                    navBarHidden: true
+                                    }
+                                }
+                                });
+                        }else{
+                            this.props.navigator.resetTo({
+                                screen: 'tripOmeter.LoginScreen',
+                                title: ''
+                            });
                         }
-                      });
-                }else{
-                    this.props.navigator.resetTo({
-                        screen: 'tripOmeter.LoginScreen',
-                        title: ''
-                    });
-                }
+                    }
+                });
                 break;
         }
     }

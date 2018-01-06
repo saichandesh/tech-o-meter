@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "/Users/sgurramkonda/tech-o-meter/android/app/build/intermediates/res/merged/debug/drawable-ldpi-v4/md_nav_back.png",
+        "source": "/Users/sgurramkonda/tech-o-meter/android/app/build/intermediates/exploded-aar/com.afollestad.material-dialogs/core/0.8.6.2/res/drawable-ldpi-v4/md_nav_back.png"
+    },
+    {
+        "merged": "/Users/sgurramkonda/tripOmeter/android/app/build/intermediates/res/merged/debug/drawable-ldpi-v4/md_nav_back.png",
+        "source": "/Users/sgurramkonda/tripOmeter/android/app/build/intermediates/exploded-aar/com.afollestad.material-dialogs/core/0.8.6.2/res/drawable-ldpi-v4/md_nav_back.png"
+    }
+]

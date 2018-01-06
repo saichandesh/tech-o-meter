@@ -10,16 +10,18 @@ import { View,
          TouchableWithoutFeedback,
          Keyboard,
          ActivityIndicator,
-         Modal } from 'react-native';
+         Modal,
+         AsyncStorage } from 'react-native';
 
 import { Button } from 'react-native-elements';
 import { connect } from 'react-redux';
 import Spinner from 'react-native-loading-spinner-overlay';
+import Toast from 'react-native-simple-toast';
+import { Navigation } from 'react-native-navigation';
 
 import backgroundImage from '../../assests/login_screen_no_icon.png';
 import startHome from '../Home/homeTab';
 import {loginUser, validatedLogin} from '../../store/actions/index';
-import Toast from 'react-native-simple-toast';
 
 class LoginScreen extends Component{
 
@@ -38,18 +40,38 @@ class LoginScreen extends Component{
 
     constructor(props){
         super(props);
+        AsyncStorage.getItem('userLogged', (err, res) => {
+            if(res === 'true'){
+                startHome();
+            }
+        });
     }
-
-    componentDidMount(){
-        console.log(this.props.isLoggedIn);
-        // if(nextProps.isLoggedIn){
-        //     startHome();
-        // }
-    }
-
+    
     componentWillUpdate(nextProps, nextState){
         if(nextProps.isLoggedIn){
-            startHome();
+            AsyncStorage.setItem('userLogged', 'true', (err) => {
+                if(!err){
+                    startHome();
+                }else{
+                    Toast.show('Error in Signing In');
+                    if(Platform.OS == 'ios'){
+                        Navigation.startSingleScreenApp({
+                            screen: {
+                              screen: 'tripOmeter.LoginScreen',
+                              title: '',
+                              navigatorStyle: {
+                                navBarHidden: true
+                              }
+                            }
+                          });
+                    }else{
+                        this.props.navigator.resetTo({
+                            screen: 'tripOmeter.LoginScreen',
+                            title: ''
+                        });
+                    }
+                }
+            });
         }
     }
 
