@@ -1,6 +1,6 @@
-import { END_TRIP, NEW_TRIP } from './actionTypes';
+import { END_TRIP, NEW_TRIP, DISMISS_MODAL } from './actionTypes';
 
-const dismissModal = () => {
+export const onEndTrip = () => {
     return{
         type : END_TRIP,
         endTripComplete : true
@@ -11,7 +11,7 @@ export const endTrip = (totalFare, cardAmount, cashAmount, destLat, destLong ) =
     
     return dispatch => {
         setTimeout(() => {
-            dispatch(dismissModal());
+            dispatch(onEndTrip());
         }, 5000);
     }
 }
@@ -20,5 +20,12 @@ export const newTrip = () => {
     return{
         type : NEW_TRIP,
         endTripComplete : false
+    }
+}
+
+export const dismissModal = (dismissModal) => {
+    return {
+        type : DISMISS_MODAL,
+        dismissModal : dismissModal
     }
 }

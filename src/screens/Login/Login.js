@@ -49,6 +49,11 @@ class LoginScreen extends Component{
     
     componentWillUpdate(nextProps, nextState){
         if(nextProps.isLoggedIn){
+            if(this.state.isLogging){
+                this.setState({
+                    isLogging : false
+                });
+            }
             AsyncStorage.setItem('userLogged', 'true', (err) => {
                 if(!err){
                     startHome();
@@ -135,6 +140,9 @@ class LoginScreen extends Component{
                                             style={styles.inputText}
                                             underlineColorAndroid='transparent'
                                             autoCapitalize = "none"
+                                            onSubmitEditing={(event) => { 
+                                                this.onPressHandler() 
+                                            }}
                                             onChangeText={(text) => this.setState({cabNumber:text})}/>
                                 </View>
                                 <Button onPress={this.onPressHandler}

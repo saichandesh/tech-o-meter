@@ -10,10 +10,13 @@ import { View,
         AsyncStorage } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {connect } from 'react-redux';
+import { Navigation } from 'react-native-navigation';
 
 import startHome from '../Home/homeTab';
 import startFuelForm from '../FuelForm/fuelTab';
-import { Navigation } from 'react-native-navigation';
+import startTripTab from '../TripHistory/tripTab';
+import startSettingsTab from '../Settings/settingsTab';
+
 import { validatedLogin } from '../../store/actions/index';
 
 class SideDrawerScreen extends Component{
@@ -26,7 +29,11 @@ class SideDrawerScreen extends Component{
             },
             {
                 key : 'Fuel Form',
-                icon : 'md-document'
+                icon : 'ios-beer'
+            },
+            {
+                key : 'Trip History',
+                icon : 'md-car'
             },
             {
                 key : 'Settings',
@@ -51,7 +58,11 @@ class SideDrawerScreen extends Component{
             case 'Fuel Form' :
                 startFuelForm();
                 break;
+            case 'Trip History' :
+                startTripTab();
+                break;
             case 'Settings' :
+                startSettingsTab();
                 break;
             case 'Sign Out':
                 this.props.onLogOut(false);

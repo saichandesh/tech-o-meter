@@ -9,7 +9,7 @@ import { Button } from 'react-native-elements';
 import { Navigation } from 'react-native-navigation';
 import Spinner from 'react-native-loading-spinner-overlay';
 import {connect} from 'react-redux';
-import {endTrip, newTrip} from '../../store/actions/index';
+import {endTrip, newTrip, dismissModal} from '../../store/actions/index';
 
 class EndTripScreen extends Component{
 
@@ -44,6 +44,7 @@ class EndTripScreen extends Component{
         Navigation.dismissAllModals({
             animationType: 'slide-down'
         });
+        this.props.dismissModal(true);
     }
     onEndTrip = () => {
         this.setState({
@@ -54,52 +55,45 @@ class EndTripScreen extends Component{
 
     render() {
         return(
-                <TouchableWithoutFeedback onPress={this.dismissModal}>
-                    <View style={styles.container}>
-                        <View style={styles.form}>
-                            <Spinner visible={this.state.isSubmiting} 
-                                     textContent={''} 
-                                     textStyle={{color: 'black'}} />
-                            <KeyboardAvoidingView behavior = "padding">
-                                <Text style={styles.text}>Total Fare</Text>
-                                <TextInput  placeholder="Total Fare" 
-                                            style= {styles.inputText} 
-                                            underlineColorAndroid='transparent'
-                                            autoCorrect = {false} 
-                                            keyboardType = 'numeric'
-                                            onSubmitEditing = {(event) => { 
-                                                this.refs.SecondInput.focus(); 
-                                            }} 
-                                            onChangeText={(text) => this.setState({totalFare:text})}/>
-                                <Text style={styles.text}>Card Amount</Text>
-                                <TextInput  placeholder="Card Amount" 
-                                            style= {styles.inputText} 
-                                            underlineColorAndroid='transparent'
-                                            autoCorrect = {false} 
-                                            keyboardType = 'numeric' 
-                                            onSubmitEditing = {(event) => { 
-                                                    this.refs.ThirdInput.focus(); 
-                                            }}
-                                           ref='SecondInput' 
-                                           onChangeText={(text) => this.setState({cardAmount:text})}/>
-                                <Text style={styles.text}>Cash Amount</Text>
-                                <TextInput  placeholder="Cash Amount"
-                                            style= {styles.inputText} 
-                                            underlineColorAndroid='transparent'
-                                            autoCorrect = {false} 
-                                            keyboardType = 'numeric'
-                                            ref='ThirdInput' 
-                                            onChangeText={(text) => this.setState({cashAmount:text})}/>
-                            </KeyboardAvoidingView>
-                            <Button buttonStyle={styles.button}
-                                    textStyle={{textAlign: 'center'}}
-                                    title={`SUBMIT`}
-                                    onPress = {this.onEndTrip}
-                            /> 
-                        </View>
+            <View style={styles.container}>
+                <View style={styles.form}>
+                    <Spinner visible={this.state.isSubmiting} 
+                                textContent={''} 
+                                textStyle={{color: 'black'}} />
+                    <KeyboardAvoidingView behavior = "padding">
+                        <Text style={styles.text}>Total Fare (Rs.)</Text>
+                        <TextInput  placeholder="Total Fare" 
+                                    style= {styles.inputText} 
+                                    underlineColorAndroid='transparent'
+                                    autoCorrect = {false} 
+                                    keyboardType = 'numeric'
+                                    onSubmitEditing = {(event) => { 
+                                        this.refs.SecondInput.focus(); 
+                                    }} 
+                                    onChangeText={(text) => this.setState({totalFare:text})}/>
+                        <Text style={styles.text}>Cash Amount (Rs.)</Text>
+                        <TextInput  placeholder="Cash Amount"
+                                    style= {styles.inputText} 
+                                    underlineColorAndroid='transparent'
+                                    autoCorrect = {false} 
+                                    keyboardType = 'numeric'
+                                    ref='SecondInput' 
+                                    onChangeText={(text) => this.setState({cashAmount:text})}/>
+                    </KeyboardAvoidingView>
+                    <View style={styles.buttonContainer}>
+                        <Button buttonStyle={styles.button}
+                                textStyle={{textAlign: 'center'}}
+                                title={`SUBMIT`}
+                                onPress = {this.onEndTrip}
+                        /> 
+                        <Button buttonStyle={styles.cancelButton}
+                                textStyle={{textAlign: 'center'}}
+                                title={`CANCEL`}
+                                onPress = {this.dismissModal}
+                        /> 
                     </View>
-                </TouchableWithoutFeedback>
-            
+                </View>
+            </View>
         );
     }
 }
@@ -122,6 +116,7 @@ const styles = StyleSheet.create({
         textAlign : 'center',
         color : '#04724b',
         fontSize : 17,
+        marginTop: '3%'
     },
     inputText: {
         fontSize : 16,
@@ -131,15 +126,24 @@ const styles = StyleSheet.create({
     },
     button : {
         backgroundColor: '#04724b',
-        marginTop : 30
+        marginTop : 30,
+    },
+    cancelButton : {
+        backgroundColor: '#D75452',
+        marginTop : 30,
+    },
+    buttonContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
     }
-
 });
 
 const mapDispatchToProps = dispatch => {
     return{
         endTripSubmit : (totalFare, cardAmount, cashAmount, destLat, destLong ) => dispatch(endTrip(totalFare, cardAmount, cashAmount, destLat, destLong )),
-        newTrip : () => dispatch(newTrip())
+        newTrip : () => dispatch(newTrip()),
+        dismissModal: (dismissModalValue) => dispatch(dismissModal(dismissModalValue))
     }
 }
 

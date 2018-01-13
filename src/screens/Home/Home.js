@@ -14,7 +14,7 @@ import { connect} from 'react-redux';
 
 import avatar from '../../assests/avatar.png';
 import startEndTrip from '../EndTrip/endTripTab';
-import {newTrip} from '../../store/actions/index';
+import {newTrip, dismissModal} from '../../store/actions/index';
 
 class HomeScreen extends Component{
 
@@ -28,21 +28,22 @@ class HomeScreen extends Component{
         navBarButtonColor: 'white'
     }
 
+    state = {
+        time: moment().format("LTS"),
+        date: moment().format("LL"),
+        buttonStyle : styles.buttonStartTrip,
+        buttonTitle : 'START TRIP',
+        trip : null,
+        tripTime : null,
+        latitude: null,
+        longitude: null,
+        error: null,
+        modalStyle: styles.dismissModal
+    };
+
     constructor(props){
         super(props);
         this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent);
-        this.state = {
-            time: moment().format("LTS"),
-            date: moment().format("LL"),
-            buttonStyle : styles.buttonStartTrip,
-            buttonTitle : 'START TRIP',
-            trip : null,
-            tripTime : null,
-            latitude: null,
-            longitude: null,
-            error: null,
-            modalStyle: null
-        };
         this.props.newTrip();
     }
 
@@ -50,15 +51,24 @@ class HomeScreen extends Component{
         if(nextProps.endTripComplete){
             this.onEndTrip();
         }
+        if(nextProps.dismissModal){
+            this.onModalDismiss();
+        }
     }
 
-    componentDidMount() {
-        setInterval(() => {
-            this.setState({
-              time: moment().format("LTS"),
-              date: moment().format("LL")
-            })
-          }, 1000);
+    // componentDidMount() {
+    //     setInterval(() => {
+    //         this.setState({
+    //           time: moment().format("LTS"),
+    //           date: moment().format("LL")
+    //         })
+    //       }, 1000);
+    // }
+
+    onModalDismiss = () => {
+        this.setState({
+            modalStyle : styles.dismissModal
+        });
     }
 
     onNavigatorEvent = event => {
@@ -77,11 +87,12 @@ class HomeScreen extends Component{
             buttonTitle : 'START TRIP',
             trip : null,
             tripTime: null,
-            modalStyle : null
+            modalStyle : styles.dismissModal
         });
     }
 
     onEndTripOkay = () => {
+        this.props.onDismissModal(false);
         startEndTrip();
         this.setState({
             modalStyle : styles.modal
@@ -89,6 +100,7 @@ class HomeScreen extends Component{
     }
 
     onStratTrip = () => {
+        this.props.onDismissModal(false);
         this.setState({
             buttonStyle : styles.buttonEndTrip,
             buttonTitle : 'END TRIP',
@@ -203,18 +215,23 @@ const styles = StyleSheet.create({
         opacity : 0.4, 
         backgroundColor : 'grey', 
         flex: 1
+    },
+    dismissModal: {
+
     }
 });
 
 const mapDispatchToProps = dispatch => {
     return{
-        newTrip : () => dispatch(newTrip())
+        newTrip : () => dispatch(newTrip()),
+        onDismissModal : (dismissModalValue) => dispatch(dismissModal(dismissModalValue))
     }
 }
 
 const maptStateToProps = state => {
     return{
-        endTripComplete : state.trip.endTripComplete
+        endTripComplete : state.trip.endTripComplete,
+        dismissModal: state.trip.dismissModal
     }
 }
 

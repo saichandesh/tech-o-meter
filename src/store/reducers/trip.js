@@ -1,7 +1,8 @@
-import { END_TRIP, NEW_TRIP } from '../actions/actionTypes';
+import { END_TRIP, NEW_TRIP, DISMISS_MODAL } from '../actions/actionTypes';
 
 const intialState = {
-    endTripComplete : false
+    endTripComplete : false,
+    dismissModal: true
 }
 
 
@@ -17,6 +18,12 @@ const tripReducer = (state = intialState, action) => {
             return {
                 ...state,
                 endTripComplete : action.endTripComplete
+            }
+            break;
+        case DISMISS_MODAL:
+            return{
+                ...state,
+                dismissModal : action.dismissModal
             }
             break;
         default:

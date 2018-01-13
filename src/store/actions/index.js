@@ -1,2 +1,2 @@
 export {loginUser, getUser, validatedLogin} from './users';
-export {endTrip, newTrip} from './trip';
+export {endTrip, newTrip, dismissModal, onEndTrip} from './trip';
