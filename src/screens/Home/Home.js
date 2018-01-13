@@ -6,7 +6,8 @@ import { View,
          StyleSheet,
          Alert,
          PermissionsAndroid,
-         Platform } from 'react-native';
+         Platform,
+         AsyncStorage } from 'react-native';
 import KeepAwake from 'react-native-keep-awake';
 import moment from "moment";
 import { Button } from 'react-native-elements';
@@ -38,13 +39,23 @@ class HomeScreen extends Component{
         latitude: null,
         longitude: null,
         error: null,
-        modalStyle: styles.dismissModal
+        modalStyle: styles.dismissModal,
+        intervalRefHandler : null
     };
 
     constructor(props){
         super(props);
         this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent);
         this.props.newTrip();
+        this.setState({
+            intervalRefHandler : null
+        });
+        AsyncStorage.getItem('tripStarted', (err, res) => {
+            alert(res);
+            if(!err && res === 'true'){
+                this.startedTrip();
+            }
+        });
     }
 
     componentWillReceiveProps(nextProps){
@@ -56,14 +67,23 @@ class HomeScreen extends Component{
         }
     }
 
-    // componentDidMount() {
-    //     setInterval(() => {
-    //         this.setState({
-    //           time: moment().format("LTS"),
-    //           date: moment().format("LL")
-    //         })
-    //       }, 1000);
-    // }
+    componentDidMount() {
+        let intervalRef = setInterval(() => {
+            this.setState({
+              time: moment().format("LTS"),
+              date: moment().format("LL")
+            })
+          }, 1000);
+        if(this.state.intervalRefHandler == null){
+            this.setState({
+                intervalRefHandler : intervalRef
+            });
+        }
+    }
+
+    componentWillUnmount(){
+        clearInterval(this.state.intervalRefHandler);
+    }
 
     onModalDismiss = () => {
         this.setState({
@@ -89,10 +109,10 @@ class HomeScreen extends Component{
             tripTime: null,
             modalStyle : styles.dismissModal
         });
+        AsyncStorage.setItem('tripStarted', 'false');
     }
 
     onEndTripOkay = () => {
-        this.props.onDismissModal(false);
         startEndTrip();
         this.setState({
             modalStyle : styles.modal
@@ -100,7 +120,6 @@ class HomeScreen extends Component{
     }
 
     onStratTrip = () => {
-        this.props.onDismissModal(false);
         this.setState({
             buttonStyle : styles.buttonEndTrip,
             buttonTitle : 'END TRIP',
@@ -108,8 +127,40 @@ class HomeScreen extends Component{
             tripTime : `Trip Start Time\n${this.state.date} - ${this.state.time}`,
             error: null
         });
+        AsyncStorage.setItem('tripStarted', 'true');
+        AsyncStorage.setItem('tripLocation', 'New York');
+        AsyncStorage.setItem('tripStartTime', `${this.state.date} - ${this.state.time}`);
     }
 
+    startedTrip = () => {
+
+        let tripName = null;
+        let tripStartTime = null;
+
+        AsyncStorage.getItem('tripLocation', (err, res) => {
+            if(!err){
+                tripName = res;
+                AsyncStorage.getItem('tripStartTime', (err, res) => {
+                    if(!err){
+                        tripStartTime = res;
+                        this.props.onDismissModal(false);
+                        this.setState({
+                            buttonStyle : styles.buttonEndTrip,
+                            buttonTitle : 'END TRIP',
+                            trip : `Trip Start Locaion - ${tripName}`,
+                            tripTime : `Trip Start Time\n${tripStartTime}`,
+                            error: null
+                        });
+                    }else{
+                        this.onEndTrip();
+                    }
+                });
+            }else{
+                this.onEndTrip();
+            }
+        });
+    }
+ 
     onPressHandler = () => {
         if(this.state.buttonTitle === 'END TRIP'){
             Alert.alert(

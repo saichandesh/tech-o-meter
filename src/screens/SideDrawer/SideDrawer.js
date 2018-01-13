@@ -65,31 +65,33 @@ class SideDrawerScreen extends Component{
                 startSettingsTab();
                 break;
             case 'Sign Out':
-                this.props.onLogOut(false);
-                this.props.navigator.toggleDrawer({
-                    side: 'left',
-                    animated: true,
-                    to: 'closed'
-                });
-                AsyncStorage.setItem('userLogged', 'false', (err) => {
-                    if(!err){
-                        if(Platform.OS == 'ios'){
-                            Navigation.startSingleScreenApp({
-                                screen: {
-                                    screen: 'tripOmeter.LoginScreen',
-                                    title: '',
-                                    navigatorStyle: {
-                                    navBarHidden: true
+                AsyncStorage.setItem('tripStarted', 'false', (err) => {
+                    this.props.onLogOut(false);
+                    this.props.navigator.toggleDrawer({
+                        side: 'left',
+                        animated: true,
+                        to: 'closed'
+                    });
+                    AsyncStorage.setItem('userLogged', 'false', (err) => {
+                        if(!err){
+                            if(Platform.OS == 'ios'){
+                                Navigation.startSingleScreenApp({
+                                    screen: {
+                                        screen: 'tripOmeter.LoginScreen',
+                                        title: '',
+                                        navigatorStyle: {
+                                        navBarHidden: true
+                                        }
                                     }
-                                }
+                                    });
+                            }else{
+                                this.props.navigator.resetTo({
+                                    screen: 'tripOmeter.LoginScreen',
+                                    title: ''
                                 });
-                        }else{
-                            this.props.navigator.resetTo({
-                                screen: 'tripOmeter.LoginScreen',
-                                title: ''
-                            });
+                            }
                         }
-                    }
+                    });
                 });
                 break;
         }
