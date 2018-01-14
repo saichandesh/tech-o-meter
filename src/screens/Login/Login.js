@@ -56,7 +56,6 @@ class LoginScreen extends Component{
             }
             AsyncStorage.setItem('userLogged', 'true', (err) => {
                 if(!err){
-                    AsyncStorage.setItem('tripStarted', 'true');
                     startHome();
                 }else{
                     Toast.show('Error in Signing In');

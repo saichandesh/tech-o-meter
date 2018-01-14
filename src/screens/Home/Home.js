@@ -47,24 +47,12 @@ class HomeScreen extends Component{
         super(props);
         this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent);
         this.props.newTrip();
+    }
+
+    componentWillMount(){
         this.setState({
             intervalRefHandler : null
         });
-        AsyncStorage.getItem('tripStarted', (err, res) => {
-            alert(res);
-            if(!err && res === 'true'){
-                this.startedTrip();
-            }
-        });
-    }
-
-    componentWillReceiveProps(nextProps){
-        if(nextProps.endTripComplete){
-            this.onEndTrip();
-        }
-        if(nextProps.dismissModal){
-            this.onModalDismiss();
-        }
     }
 
     componentDidMount() {
@@ -78,6 +66,21 @@ class HomeScreen extends Component{
             this.setState({
                 intervalRefHandler : intervalRef
             });
+        }
+
+        AsyncStorage.getItem('tripStarted', (err, res) => {
+            if(!err && res === 'true'){
+                this.startedTrip();
+            }
+        });
+    }
+
+    componentWillReceiveProps(nextProps){
+        if(nextProps.endTripComplete){
+            this.onEndTrip();
+        }
+        if(nextProps.dismissModal){
+            this.onModalDismiss();
         }
     }
 
@@ -113,10 +116,11 @@ class HomeScreen extends Component{
     }
 
     onEndTripOkay = () => {
-        startEndTrip();
         this.setState({
             modalStyle : styles.modal
         });
+        this.props.onDismissModal(false);
+        startEndTrip();
     }
 
     onStratTrip = () => {
@@ -268,7 +272,7 @@ const styles = StyleSheet.create({
         flex: 1
     },
     dismissModal: {
-
+        opacity : 1
     }
 });
 

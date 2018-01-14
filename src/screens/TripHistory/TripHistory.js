@@ -172,18 +172,18 @@ class TripHistoryScreen extends Component{
 
 const styles = {
     container: {
-        padding : '5%'
+        padding : '3%'
     },
     inputText: {
         fontSize : 16,
         color: 'black',
         borderBottomWidth : 1,
         borderColor : '#04724b',
-        marginBottom : '3%'
+        marginBottom : '1%'
     },
     button : {
         backgroundColor: '#04724b',
-        marginTop : 10
+        marginTop : 8
     },
     datepickercontainer: {
         borderColor : '#04724b',
@@ -196,7 +196,7 @@ const styles = {
         borderWidth: 1, 
         borderRadius : 50,
         padding : '1%',
-        marginBottom : '3%'
+        marginBottom : '1%'
     },
     datepicker : {
         width : '100%',
