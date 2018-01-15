@@ -1,9 +1,10 @@
-import { LOGIN_USER, GET_USER } from '../actions/actionTypes';
+import { LOGIN_USER, GET_USER, VALIDATION } from '../actions/actionTypes';
 
 const intialState = {
     userName : null,
     cabNumber: null,
-    isLoggedIn: false
+    isLoggedIn: false,
+    isValidation : false
 }
 
 
@@ -12,7 +13,8 @@ const userReducer = (state = intialState, action) => {
         case LOGIN_USER :
             return {
                 ...state,
-                isLoggedIn : action.isLoggedIn
+                isLoggedIn : action.isLoggedIn,
+                isValidation :action.isValidation
             }
             break;
         case GET_USER :

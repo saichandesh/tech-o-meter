@@ -23,8 +23,13 @@ import {newTrip, dismissModal} from '../../store/actions/index';
 import BackgroundTimer from 'react-native-background-timer';
 
 const intervalId = BackgroundTimer.setInterval(() => {
-	console.log('tic');
-}, 200);
+    navigator.geolocation.getCurrentPosition(
+        (position) => {
+          console.log(`${position.coords.latitude} \n ${position.coords.longitude}`);
+        }, (error) => {
+           console.log(error)
+        });
+}, 5000);
 
 class HomeScreen extends Component{
 
@@ -108,16 +113,6 @@ class HomeScreen extends Component{
     componentWillUnmount(){
         clearInterval(this.state.intervalRefHandler);
         AppState.removeEventListener('change', this._handleAppStateChange);
-    }
-
-    getCurrentPosition = () => {
-        navigator.geolocation.getCurrentPosition(
-            (position) => {
-                alert(`${position.coords.latitude} \n ${position.coords.longitude}`);
-                return position.coords
-            }, (error) => {
-                alert(error);
-            });
     }
 
     _handleAppStateChange = (nextAppState) => {

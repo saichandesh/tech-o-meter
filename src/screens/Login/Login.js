@@ -21,7 +21,7 @@ import { Navigation } from 'react-native-navigation';
 
 import backgroundImage from '../../assests/login_screen_no_icon.png';
 import startHome from '../Home/homeTab';
-import {loginUser, validatedLogin} from '../../store/actions/index';
+import {loginUser, validatedLogin } from '../../store/actions/index';
 
 class LoginScreen extends Component{
 
@@ -51,38 +51,46 @@ class LoginScreen extends Component{
         if(nextProps.isLoggedIn){
             if(this.state.isLogging){
                 this.setState({
-                    isLogging : false
+                    isLogging : false,
+                    userName : null,
+                    password : null,
+                    cabNumber : null
                 });
             }
-            AsyncStorage.setItem('userLogged', 'true', (err) => {
-                if(!err){
-                    startHome();
-                }else{
-                    Toast.show('Error in Signing In');
-                    if(Platform.OS == 'ios'){
-                        Navigation.startSingleScreenApp({
-                            screen: {
-                              screen: 'tripOmeter.LoginScreen',
-                              title: '',
-                              navigatorStyle: {
-                                navBarHidden: true
-                              }
-                            }
-                          });
+            if(!nextProps.isValidation){
+                this.props.setLoggin(false, true);
+                Toast.show('Username or password is wrong. Please try again');
+            }else{
+                AsyncStorage.setItem('userLogged', 'true', (err) => {
+                    if(!err){
+                        startHome();
                     }else{
-                        this.props.navigator.resetTo({
-                            screen: 'tripOmeter.LoginScreen',
-                            title: ''
-                        });
+                        Toast.show('Error in Signing In');
+                        if(Platform.OS == 'ios'){
+                            Navigation.startSingleScreenApp({
+                                screen: {
+                                  screen: 'tripOmeter.LoginScreen',
+                                  title: '',
+                                  navigatorStyle: {
+                                    navBarHidden: true
+                                  }
+                                }
+                              });
+                        }else{
+                            this.props.navigator.resetTo({
+                                screen: 'tripOmeter.LoginScreen',
+                                title: ''
+                            });
+                        }
                     }
-                }
-            });
+                });
+            }
         }
     }
 
     onPressHandler = () => {
 
-        this.props.setLoggin(false);
+        this.props.setLoggin(false, true);
 
         this.setState(prevState => {
             return{
@@ -124,6 +132,7 @@ class LoginScreen extends Component{
                                             onSubmitEditing={(event) => { 
                                                 this.refs.SecondInput.focus(); 
                                             }}
+                                            value = {this.state.userName}
                                             onChangeText={(text) => this.setState({userName:text})}/>
                                     <TextInput ref='SecondInput'
                                             placeholder="Password" 
@@ -134,6 +143,7 @@ class LoginScreen extends Component{
                                             onSubmitEditing={(event) => { 
                                                 this.refs.ThirdInput.focus(); 
                                             }}
+                                            value = {this.state.password}
                                             onChangeText={(text) => this.setState({password:text})}/>
                                     <TextInput ref='ThirdInput'
                                             placeholder="Cab Number" 
@@ -143,6 +153,7 @@ class LoginScreen extends Component{
                                             onSubmitEditing={(event) => { 
                                                 this.onPressHandler() 
                                             }}
+                                            value = {this.state.cabNumber}
                                             onChangeText={(text) => this.setState({cabNumber:text})}/>
                                 </View>
                                 <Button onPress={this.onPressHandler}
@@ -190,13 +201,14 @@ const styles = StyleSheet.create({
 const mapDispatchToProps = dispatch => {
     return {
         onLogin : (UserName, password, cabNumber) => dispatch(loginUser(UserName, password, cabNumber)),
-        setLoggin : (loggedIn) => dispatch(validatedLogin(loggedIn))
+        setLoggin : (loggedIn, validation) => dispatch(validatedLogin(loggedIn, validation))
     };
 }
 
 const mapStateToProps = state => {
     return {
-        isLoggedIn : state.user.isLoggedIn
+        isLoggedIn : state.user.isLoggedIn,
+        isValidation : state.user.isValidation
     };
 }
 

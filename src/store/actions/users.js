@@ -1,9 +1,12 @@
-import { LOGIN_USER, GET_USER} from './actionTypes';
+import { LOGIN_USER, GET_USER, VALIDATION } from './actionTypes';
+import { url } from '../../config/config';
+import moment from 'moment';
 
-export const validatedLogin = isLoggedIn => {
+export const validatedLogin = (isLoggedIn, isValidation) => {
     return {
         type : LOGIN_USER,
-        isLoggedIn : isLoggedIn
+        isLoggedIn : isLoggedIn,
+        isValidation : isValidation
     }
 }
 
@@ -11,10 +14,38 @@ export const loginUser = (userName, password, cabNumber) => {
     let isLoggedIn = false;
 
     return dispatch => {
-        setTimeout(() => {
-            isLoggedIn = true;
-            dispatch(validatedLogin(isLoggedIn));
-        }, 2000);
+
+        let loginTime = moment(new Date().getTime()).format('YYYY-MM-DD HH:mm:ss');
+        let body = JSON.stringify({
+            cabNumber : cabNumber,
+            userName : userName,
+            password : password,
+            loginTime : loginTime
+        });
+
+        fetch(`${url}/login`, {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: body
+        })
+        .catch(err => {
+            dispatch(validatedLogin(true, false))
+        })
+        .then(res => {
+            if(res === undefined){
+                dispatch(validatedLogin(true, false))
+            }else{
+                let response = res.json();
+                if(res.status === 501){
+                    dispatch(validatedLogin(true, false))
+                }else{
+                    dispatch(validatedLogin(true, true))
+                }
+            }
+        });
     }
 }
 
