@@ -20,6 +20,10 @@
         "source": "/Users/sgurramkonda/tech-o-meter/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/res/drawable/abc_edit_text_material.xml"
     },
     {
+        "merged": "/Users/sgurramkonda/tripOmeter/android/app/build/intermediates/res/merged/debug/drawable/common_google_signin_btn_text_dark_normal.xml",
+        "source": "/Users/sgurramkonda/tripOmeter/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/11.6.0/res/drawable/common_google_signin_btn_text_dark_normal.xml"
+    },
+    {
         "merged": "/Users/sgurramkonda/tech-o-meter/android/app/build/intermediates/res/merged/debug/drawable/abc_vector_test.xml",
         "source": "/Users/sgurramkonda/tech-o-meter/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/res/drawable/abc_vector_test.xml"
     },
@@ -36,12 +40,12 @@
         "source": "/Users/sgurramkonda/tech-o-meter/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/res/drawable/notification_tile_bg.xml"
     },
     {
-        "merged": "/Users/sgurramkonda/tech-o-meter/android/app/build/intermediates/res/merged/debug/drawable/abc_ic_voice_search_api_material.xml",
-        "source": "/Users/sgurramkonda/tech-o-meter/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/res/drawable/abc_ic_voice_search_api_material.xml"
-    },
-    {
         "merged": "/Users/sgurramkonda/tech-o-meter/android/app/build/intermediates/res/merged/debug/drawable/notification_bg_low.xml",
         "source": "/Users/sgurramkonda/tech-o-meter/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/res/drawable/notification_bg_low.xml"
+    },
+    {
+        "merged": "/Users/sgurramkonda/tech-o-meter/android/app/build/intermediates/res/merged/debug/drawable/abc_ic_voice_search_api_material.xml",
+        "source": "/Users/sgurramkonda/tech-o-meter/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/res/drawable/abc_ic_voice_search_api_material.xml"
     },
     {
         "merged": "/Users/sgurramkonda/tripOmeter/android/app/build/intermediates/res/merged/debug/drawable/abc_list_selector_background_transition_holo_dark.xml",
@@ -68,12 +72,12 @@
         "source": "/Users/sgurramkonda/tech-o-meter/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/res/drawable/abc_switch_thumb_material.xml"
     },
     {
-        "merged": "/Users/sgurramkonda/tech-o-meter/android/app/build/intermediates/res/merged/debug/drawable/md_btn_selector.xml",
-        "source": "/Users/sgurramkonda/tech-o-meter/android/app/build/intermediates/exploded-aar/com.afollestad.material-dialogs/core/0.8.6.2/res/drawable/md_btn_selector.xml"
-    },
-    {
         "merged": "/Users/sgurramkonda/tech-o-meter/android/app/build/intermediates/res/merged/debug/drawable/abc_item_background_holo_dark.xml",
         "source": "/Users/sgurramkonda/tech-o-meter/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/res/drawable/abc_item_background_holo_dark.xml"
+    },
+    {
+        "merged": "/Users/sgurramkonda/tech-o-meter/android/app/build/intermediates/res/merged/debug/drawable/md_btn_selector.xml",
+        "source": "/Users/sgurramkonda/tech-o-meter/android/app/build/intermediates/exploded-aar/com.afollestad.material-dialogs/core/0.8.6.2/res/drawable/md_btn_selector.xml"
     },
     {
         "merged": "/Users/sgurramkonda/tech-o-meter/android/app/build/intermediates/res/merged/debug/drawable/notification_bg.xml",
@@ -94,6 +98,14 @@
     {
         "merged": "/Users/sgurramkonda/tripOmeter/android/app/build/intermediates/res/merged/debug/drawable/md_item_selected_dark.xml",
         "source": "/Users/sgurramkonda/tripOmeter/android/app/build/intermediates/exploded-aar/com.afollestad.material-dialogs/core/0.8.6.2/res/drawable/md_item_selected_dark.xml"
+    },
+    {
+        "merged": "/Users/sgurramkonda/tripOmeter/android/app/build/intermediates/res/merged/debug/drawable/common_google_signin_btn_icon_dark.xml",
+        "source": "/Users/sgurramkonda/tripOmeter/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/11.6.0/res/drawable/common_google_signin_btn_icon_dark.xml"
+    },
+    {
+        "merged": "/Users/sgurramkonda/tripOmeter/android/app/build/intermediates/res/merged/debug/drawable/common_google_signin_btn_text_light_focused.xml",
+        "source": "/Users/sgurramkonda/tripOmeter/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/11.6.0/res/drawable/common_google_signin_btn_text_light_focused.xml"
     },
     {
         "merged": "/Users/sgurramkonda/tech-o-meter/android/app/build/intermediates/res/merged/debug/drawable/abc_list_selector_background_transition_holo_light.xml",
@@ -148,12 +160,12 @@
         "source": "/Users/sgurramkonda/tripOmeter/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/res/drawable/abc_btn_borderless_material.xml"
     },
     {
-        "merged": "/Users/sgurramkonda/tech-o-meter/android/app/build/intermediates/res/merged/debug/drawable/abc_ic_menu_overflow_material.xml",
-        "source": "/Users/sgurramkonda/tech-o-meter/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/res/drawable/abc_ic_menu_overflow_material.xml"
-    },
-    {
         "merged": "/Users/sgurramkonda/tripOmeter/android/app/build/intermediates/res/merged/debug/drawable/abc_list_selector_background_transition_holo_light.xml",
         "source": "/Users/sgurramkonda/tripOmeter/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/res/drawable/abc_list_selector_background_transition_holo_light.xml"
+    },
+    {
+        "merged": "/Users/sgurramkonda/tech-o-meter/android/app/build/intermediates/res/merged/debug/drawable/abc_ic_menu_overflow_material.xml",
+        "source": "/Users/sgurramkonda/tech-o-meter/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/res/drawable/abc_ic_menu_overflow_material.xml"
     },
     {
         "merged": "/Users/sgurramkonda/tech-o-meter/android/app/build/intermediates/res/merged/debug/drawable/md_selector_dark.xml",
@@ -224,8 +236,16 @@
         "source": "/Users/sgurramkonda/tech-o-meter/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/res/drawable/abc_btn_radio_material.xml"
     },
     {
+        "merged": "/Users/sgurramkonda/tripOmeter/android/app/build/intermediates/res/merged/debug/drawable/common_google_signin_btn_icon_light_normal.xml",
+        "source": "/Users/sgurramkonda/tripOmeter/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/11.6.0/res/drawable/common_google_signin_btn_icon_light_normal.xml"
+    },
+    {
         "merged": "/Users/sgurramkonda/tripOmeter/android/app/build/intermediates/res/merged/debug/drawable/abc_tab_indicator_material.xml",
         "source": "/Users/sgurramkonda/tripOmeter/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/res/drawable/abc_tab_indicator_material.xml"
+    },
+    {
+        "merged": "/Users/sgurramkonda/tripOmeter/android/app/build/intermediates/res/merged/debug/drawable/common_google_signin_btn_icon_dark_focused.xml",
+        "source": "/Users/sgurramkonda/tripOmeter/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/11.6.0/res/drawable/common_google_signin_btn_icon_dark_focused.xml"
     },
     {
         "merged": "/Users/sgurramkonda/tripOmeter/android/app/build/intermediates/res/merged/debug/drawable/abc_ic_ab_back_material.xml",
@@ -288,8 +308,16 @@
         "source": "/Users/sgurramkonda/tripOmeter/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/res/drawable/abc_list_selector_holo_dark.xml"
     },
     {
+        "merged": "/Users/sgurramkonda/tripOmeter/android/app/build/intermediates/res/merged/debug/drawable/common_google_signin_btn_text_light.xml",
+        "source": "/Users/sgurramkonda/tripOmeter/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/11.6.0/res/drawable/common_google_signin_btn_text_light.xml"
+    },
+    {
         "merged": "/Users/sgurramkonda/tech-o-meter/android/app/build/intermediates/res/merged/debug/drawable/abc_list_selector_holo_dark.xml",
         "source": "/Users/sgurramkonda/tech-o-meter/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/res/drawable/abc_list_selector_holo_dark.xml"
+    },
+    {
+        "merged": "/Users/sgurramkonda/tripOmeter/android/app/build/intermediates/res/merged/debug/drawable/common_google_signin_btn_icon_light_focused.xml",
+        "source": "/Users/sgurramkonda/tripOmeter/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/11.6.0/res/drawable/common_google_signin_btn_icon_light_focused.xml"
     },
     {
         "merged": "/Users/sgurramkonda/tech-o-meter/android/app/build/intermediates/res/merged/debug/drawable/abc_cab_background_top_material.xml",
@@ -300,8 +328,16 @@
         "source": "/Users/sgurramkonda/tripOmeter/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/res/drawable/abc_switch_thumb_material.xml"
     },
     {
+        "merged": "/Users/sgurramkonda/tripOmeter/android/app/build/intermediates/res/merged/debug/drawable/common_google_signin_btn_icon_disabled.xml",
+        "source": "/Users/sgurramkonda/tripOmeter/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/11.6.0/res/drawable/common_google_signin_btn_icon_disabled.xml"
+    },
+    {
         "merged": "/Users/sgurramkonda/tech-o-meter/android/app/build/intermediates/res/merged/debug/drawable/abc_btn_default_mtrl_shape.xml",
         "source": "/Users/sgurramkonda/tech-o-meter/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/res/drawable/abc_btn_default_mtrl_shape.xml"
+    },
+    {
+        "merged": "/Users/sgurramkonda/tripOmeter/android/app/build/intermediates/res/merged/debug/drawable/common_google_signin_btn_text_dark.xml",
+        "source": "/Users/sgurramkonda/tripOmeter/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/11.6.0/res/drawable/common_google_signin_btn_text_dark.xml"
     },
     {
         "merged": "/Users/sgurramkonda/tech-o-meter/android/app/build/intermediates/res/merged/debug/drawable/abc_ic_arrow_drop_right_black_24dp.xml",
@@ -320,6 +356,10 @@
         "source": "/Users/sgurramkonda/tripOmeter/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/res/drawable/abc_list_selector_holo_light.xml"
     },
     {
+        "merged": "/Users/sgurramkonda/tripOmeter/android/app/build/intermediates/res/merged/debug/drawable/common_google_signin_btn_icon_dark_normal.xml",
+        "source": "/Users/sgurramkonda/tripOmeter/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/11.6.0/res/drawable/common_google_signin_btn_icon_dark_normal.xml"
+    },
+    {
         "merged": "/Users/sgurramkonda/tech-o-meter/android/app/build/intermediates/res/merged/debug/drawable/notification_background.xml",
         "source": "/Users/sgurramkonda/tech-o-meter/android/app/build/intermediates/exploded-aar/com.aurelhubert/ahbottomnavigation/2.0.6/res/drawable/notification_background.xml"
     },
@@ -336,6 +376,10 @@
         "source": "/Users/sgurramkonda/tripOmeter/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/res/drawable/abc_ic_go_search_api_material.xml"
     },
     {
+        "merged": "/Users/sgurramkonda/tripOmeter/android/app/build/intermediates/res/merged/debug/drawable/common_google_signin_btn_text_disabled.xml",
+        "source": "/Users/sgurramkonda/tripOmeter/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/11.6.0/res/drawable/common_google_signin_btn_text_disabled.xml"
+    },
+    {
         "merged": "/Users/sgurramkonda/tech-o-meter/android/app/build/intermediates/res/merged/debug/drawable/md_btn_selected_dark.xml",
         "source": "/Users/sgurramkonda/tech-o-meter/android/app/build/intermediates/exploded-aar/com.afollestad.material-dialogs/core/0.8.6.2/res/drawable/md_btn_selected_dark.xml"
     },
@@ -348,6 +392,10 @@
         "source": "/Users/sgurramkonda/tripOmeter/android/app/build/intermediates/exploded-aar/com.afollestad.material-dialogs/core/0.8.6.2/res/drawable/md_item_selected.xml"
     },
     {
+        "merged": "/Users/sgurramkonda/tripOmeter/android/app/build/intermediates/res/merged/debug/drawable/common_google_signin_btn_icon_light.xml",
+        "source": "/Users/sgurramkonda/tripOmeter/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/11.6.0/res/drawable/common_google_signin_btn_icon_light.xml"
+    },
+    {
         "merged": "/Users/sgurramkonda/tech-o-meter/android/app/build/intermediates/res/merged/debug/drawable/abc_seekbar_thumb_material.xml",
         "source": "/Users/sgurramkonda/tech-o-meter/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/res/drawable/abc_seekbar_thumb_material.xml"
     },
@@ -358,6 +406,14 @@
     {
         "merged": "/Users/sgurramkonda/tripOmeter/android/app/build/intermediates/res/merged/debug/drawable/abc_item_background_holo_dark.xml",
         "source": "/Users/sgurramkonda/tripOmeter/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/res/drawable/abc_item_background_holo_dark.xml"
+    },
+    {
+        "merged": "/Users/sgurramkonda/tripOmeter/android/app/build/intermediates/res/merged/debug/drawable/common_google_signin_btn_text_light_normal.xml",
+        "source": "/Users/sgurramkonda/tripOmeter/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/11.6.0/res/drawable/common_google_signin_btn_text_light_normal.xml"
+    },
+    {
+        "merged": "/Users/sgurramkonda/tripOmeter/android/app/build/intermediates/res/merged/debug/drawable/common_google_signin_btn_text_dark_focused.xml",
+        "source": "/Users/sgurramkonda/tripOmeter/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/11.6.0/res/drawable/common_google_signin_btn_text_dark_focused.xml"
     },
     {
         "merged": "/Users/sgurramkonda/tripOmeter/android/app/build/intermediates/res/merged/debug/drawable/abc_spinner_textfield_background_material.xml",

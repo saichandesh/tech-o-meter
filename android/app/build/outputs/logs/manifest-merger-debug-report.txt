@@ -30,6 +30,7 @@ ADDED from /Users/sgurramkonda/tripOmeter/android/app/src/main/AndroidManifest.x
 		ADDED from /Users/sgurramkonda/tripOmeter/android/app/src/main/AndroidManifest.xml:8:22-76
 uses-sdk
 ADDED from /Users/sgurramkonda/tripOmeter/android/app/src/main/AndroidManifest.xml:10:5-12:41
+MERGED from [tripOmeter:react-native-background-timer:unspecified] /Users/sgurramkonda/tripOmeter/android/app/build/intermediates/exploded-aar/tripOmeter/react-native-background-timer/unspecified/AndroidManifest.xml:7:5-9:41
 MERGED from [tripOmeter:react-native-keep-awake:unspecified] /Users/sgurramkonda/tripOmeter/android/app/build/intermediates/exploded-aar/tripOmeter/react-native-keep-awake/unspecified/AndroidManifest.xml:7:5-9:41
 MERGED from [tripOmeter:react-native-vector-icons:unspecified] /Users/sgurramkonda/tripOmeter/android/app/build/intermediates/exploded-aar/tripOmeter/react-native-vector-icons/unspecified/AndroidManifest.xml:7:5-9:41
 MERGED from [tripOmeter:react-native-navigation:unspecified] /Users/sgurramkonda/tripOmeter/android/app/build/intermediates/exploded-aar/tripOmeter/react-native-navigation/unspecified/AndroidManifest.xml:7:5-9:41

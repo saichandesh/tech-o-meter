@@ -3,6 +3,7 @@ package com.tripometer;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.ocetnik.timer.BackgroundTimerPackage;
 import com.aakashns.reactnativedialogs.ReactNativeDialogsPackage;
 import com.corbt.keepawake.KCKeepAwakePackage;
 import com.facebook.react.ReactNativeHost;
@@ -27,7 +28,8 @@ public class MainApplication extends NavigationApplication {
          // No need to add RnnPackage and MainReactPackage
          return Arrays.<ReactPackage>asList(
              new VectorIconsPackage(),
-             new KCKeepAwakePackage()
+             new KCKeepAwakePackage(),
+             new BackgroundTimerPackage()
          );
      }
 
@@ -35,4 +37,5 @@ public class MainApplication extends NavigationApplication {
      public List<ReactPackage> createAdditionalReactPackages() {
          return getPackages();
      }
+
 }

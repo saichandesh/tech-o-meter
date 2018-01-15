@@ -65,7 +65,7 @@ class SideDrawerScreen extends Component{
                 startSettingsTab();
                 break;
             case 'Sign Out':
-                AsyncStorage.setItem('tripStarted', 'false', (err) => {
+                AsyncStorage.removeItem('tripStarted', (err) => {
                     if(!err){
                         this.props.onLogOut(false);
                         this.props.navigator.toggleDrawer({
@@ -73,7 +73,7 @@ class SideDrawerScreen extends Component{
                             animated: true,
                             to: 'closed'
                         });
-                        AsyncStorage.setItem('userLogged', 'false', (err) => {
+                        AsyncStorage.removeItem('userLogged', (err) => {
                             if(!err){
                                 if(Platform.OS == 'ios'){
                                     Navigation.startSingleScreenApp({

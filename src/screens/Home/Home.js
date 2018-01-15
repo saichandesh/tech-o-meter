@@ -7,7 +7,11 @@ import { View,
          Alert,
          PermissionsAndroid,
          Platform,
-         AsyncStorage } from 'react-native';
+         AsyncStorage,
+         AppState,
+         DeviceEventEmitter,
+         NativeAppEventEmitter,
+         NativeModules } from 'react-native';
 import KeepAwake from 'react-native-keep-awake';
 import moment from "moment";
 import { Button } from 'react-native-elements';
@@ -16,6 +20,11 @@ import { connect} from 'react-redux';
 import avatar from '../../assests/avatar.png';
 import startEndTrip from '../EndTrip/endTripTab';
 import {newTrip, dismissModal} from '../../store/actions/index';
+import BackgroundTimer from 'react-native-background-timer';
+
+const intervalId = BackgroundTimer.setInterval(() => {
+	console.log('tic');
+}, 200);
 
 class HomeScreen extends Component{
 
@@ -40,7 +49,8 @@ class HomeScreen extends Component{
         longitude: null,
         error: null,
         modalStyle: styles.dismissModal,
-        intervalRefHandler : null
+        intervalRefHandler : null,
+        appState: AppState.currentState
     };
 
     constructor(props){
@@ -53,6 +63,7 @@ class HomeScreen extends Component{
         this.setState({
             intervalRefHandler : null
         });
+
     }
 
     componentDidMount() {
@@ -73,6 +84,16 @@ class HomeScreen extends Component{
                 this.startedTrip();
             }
         });
+
+        AppState.addEventListener('change', this._handleAppStateChange);
+       
+        
+        // BackgroundTimer.start(5000);
+
+        // EventEmitter.addListener('backgroundTimer', () => {
+        //     console.log('toe');
+        // });
+
     }
 
     componentWillReceiveProps(nextProps){
@@ -86,6 +107,31 @@ class HomeScreen extends Component{
 
     componentWillUnmount(){
         clearInterval(this.state.intervalRefHandler);
+        AppState.removeEventListener('change', this._handleAppStateChange);
+    }
+
+    getCurrentPosition = () => {
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                alert(`${position.coords.latitude} \n ${position.coords.longitude}`);
+                return position.coords
+            }, (error) => {
+                alert(error);
+            });
+    }
+
+    _handleAppStateChange = (nextAppState) => {
+        console.log(`nextAppState : ${nextAppState}`);
+        // if(nextAppState === 'background'){
+        //     console.log(`background.....`);
+        //     setTimeout(() => {
+        //         console.log(`background.....`);
+        //     }, 100);
+        // }
+        // if (this.state.appState.match(/inactive|background/) && nextAppState === 'active') {
+        //   console.log('App has come to the foreground!')
+        // }
+        this.setState({appState: nextAppState});
     }
 
     onModalDismiss = () => {

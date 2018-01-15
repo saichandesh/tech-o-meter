@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Wed Jan 03 19:19:12 CST 2018
+#Sun Jan 14 17:47:15 CST 2018
 20.base=/Users/sgurramkonda/tripOmeter/android/app/build/intermediates/res/resources-debug.ap_
 143.base=/Users/sgurramkonda/tripOmeter/android/app/build/intermediates/transforms/mergeJniLibs/debug/folders/2000/1f/main
 493.base=/Users/sgurramkonda/tripOmeter/android/app/build/intermediates/res/resources-debug.ap_
