@@ -55,7 +55,9 @@ class HomeScreen extends Component{
         error: null,
         modalStyle: styles.dismissModal,
         intervalRefHandler : null,
-        appState: AppState.currentState
+        appState: AppState.currentState,
+        userName : null,
+        cabNumber : null
     };
 
     constructor(props){
@@ -68,7 +70,17 @@ class HomeScreen extends Component{
         this.setState({
             intervalRefHandler : null
         });
-
+        
+        AsyncStorage.multiGet(['username', 'cabnumber'], (errors, result) => {
+            
+            if(errors === null){
+                console.log(JSON.stringify(result));
+                this.setState({
+                    userName : result[0][1],
+                    cabNumber : result[1][1]
+                });
+            }
+        });
     }
 
     componentDidMount() {
@@ -89,16 +101,6 @@ class HomeScreen extends Component{
                 this.startedTrip();
             }
         });
-
-        AppState.addEventListener('change', this._handleAppStateChange);
-       
-        
-        // BackgroundTimer.start(5000);
-
-        // EventEmitter.addListener('backgroundTimer', () => {
-        //     console.log('toe');
-        // });
-
     }
 
     componentWillReceiveProps(nextProps){
@@ -112,21 +114,6 @@ class HomeScreen extends Component{
 
     componentWillUnmount(){
         clearInterval(this.state.intervalRefHandler);
-        AppState.removeEventListener('change', this._handleAppStateChange);
-    }
-
-    _handleAppStateChange = (nextAppState) => {
-        console.log(`nextAppState : ${nextAppState}`);
-        // if(nextAppState === 'background'){
-        //     console.log(`background.....`);
-        //     setTimeout(() => {
-        //         console.log(`background.....`);
-        //     }, 100);
-        // }
-        // if (this.state.appState.match(/inactive|background/) && nextAppState === 'active') {
-        //   console.log('App has come to the foreground!')
-        // }
-        this.setState({appState: nextAppState});
     }
 
     onModalDismiss = () => {
@@ -229,8 +216,8 @@ class HomeScreen extends Component{
                            barStyle="dark-content"/>
                 <View style={styles.imageContainer}>
                     <Image source={avatar} style={styles.image}/>
-                    <Text style={styles.inputText}>Driver Name : Hari Haran</Text>
-                    <Text style={styles.inputText}>Cab Number : 20894</Text> 
+                    <Text style={styles.inputText}>Driver Name : {this.state.userName}</Text>
+                    <Text style={styles.inputText}>Cab Number : {this.state.cabNumber}</Text> 
                 </View>
                 <View style={styles.container}>
                     <Text style={styles.dateText}>

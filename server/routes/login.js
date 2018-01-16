@@ -56,8 +56,6 @@ const login = (req,res,conn, responseObj) => {
                                                                     }else{
                                                                         responseObj.message = 'Login Successfully';
                                                                         responseObj.data = {
-                                                                            userID: UserID,
-                                                                            cabID : CabID,
                                                                             loginID : result[0].LoginID
                                                                         }
                                                                         res.json(responseObj);
@@ -82,8 +80,6 @@ const login = (req,res,conn, responseObj) => {
                                                             }else{
                                                                 responseObj.message = 'Login Successfully';
                                                                 responseObj.data = {
-                                                                    userID: UserID,
-                                                                    cabID : CabID,
                                                                     loginID : result[0].LoginID
                                                                 }
                                                                 res.json(responseObj);

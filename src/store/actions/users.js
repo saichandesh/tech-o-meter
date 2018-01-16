@@ -1,6 +1,7 @@
 import { LOGIN_USER, GET_USER, VALIDATION } from './actionTypes';
 import { url } from '../../config/config';
 import moment from 'moment';
+import { AsyncStorage } from 'react-native';
 
 export const validatedLogin = (isLoggedIn, isValidation) => {
     return {
@@ -38,12 +39,21 @@ export const loginUser = (userName, password, cabNumber) => {
             if(res === undefined){
                 dispatch(validatedLogin(true, false))
             }else{
-                let response = res.json();
                 if(res.status === 501){
                     dispatch(validatedLogin(true, false))
                 }else{
-                    dispatch(validatedLogin(true, true))
+                    return res.json();
                 }
+            }
+        })
+        .then(response => {
+            if(response != undefined){
+                let loginID = response.data.loginID;
+                AsyncStorage.multiSet( [['username', userName], ['cabnumber', cabNumber], ['loginid', `${loginID}`]] , err => {
+                    if(!err){
+                        dispatch(validatedLogin(true, true));
+                    }
+                });
             }
         });
     }
