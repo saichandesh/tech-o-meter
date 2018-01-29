@@ -4,12 +4,15 @@ import { View,
          TextInput,
          StyleSheet,
          KeyboardAvoidingView,
-         TouchableWithoutFeedback } from 'react-native';
+         TouchableWithoutFeedback,
+         AsyncStorage } from 'react-native';
 import { Button } from 'react-native-elements';
 import { Navigation } from 'react-native-navigation';
 import Spinner from 'react-native-loading-spinner-overlay';
 import {connect} from 'react-redux';
-import {endTrip, newTrip, dismissModal} from '../../store/actions/index';
+import {endTrip, newTrip, dismissModal, logOut, validatedLogin, startTrip, onStartTrip} from '../../store/actions/index';
+import Toast from 'react-native-simple-toast';
+import moment from "moment";
 
 class EndTripScreen extends Component{
 
@@ -47,10 +50,40 @@ class EndTripScreen extends Component{
         this.props.dismissModal(true);
     }
     onEndTrip = () => {
-        this.setState({
-            isSubmiting : true
-        });
-        this.props.endTripSubmit(this.state.totalFare,this.state.cardAmount, this.state.cardAmount, '', '');
+        if(this.state.totalFare === null || this.state.cashAmount === null){
+            Toast.show(`Fields can't be null`);
+        }else if( parseInt(this.state.totalFare) < parseInt(this.state.cashAmount)){
+            Toast.show(`Cash amount can't be greater than total amount`);
+        }else{
+            this.props.onStartTrip(false, false, false);
+            this.setState({
+                isSubmiting : true
+            });
+
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    AsyncStorage.multiGet(['loginid', 'userid' , 'tripid'], (errors, res) => {
+                        if(errors === null){
+                            let tripDetails = {
+                                totalAmount : parseInt(this.state.totalFare), 
+                                cashAmount : parseInt(this.state.cashAmount),
+                                tripID : parseInt(res[2][1]),
+                                loginID : parseInt(res[0][1]),
+                                userID : parseInt(res[1][1]),
+                                lat : position.coords.latitude,
+                                long : position.coords.longitude,
+                                endTime : moment(new Date().getTime()).format('DD-MM-YYYY   hh:mm:ss a')
+                            }
+                            this.props.endTripSubmit(tripDetails);
+                        }
+                    });
+                }, (error) => {
+                    this.setState({
+                        isSubmiting : false
+                    });
+                    Toast.show(`Error in ending the trip. Check the details and try again`);
+            });
+        }
     }
 
     render() {
@@ -77,7 +110,10 @@ class EndTripScreen extends Component{
                                     underlineColorAndroid='transparent'
                                     autoCorrect = {false} 
                                     keyboardType = 'numeric'
-                                    ref='SecondInput' 
+                                    ref='SecondInput'
+                                    onSubmitEditing = {(event) => { 
+                                        this.onEndTrip()
+                                    }} 
                                     onChangeText={(text) => this.setState({cashAmount:text})}/>
                     </KeyboardAvoidingView>
                     <View style={styles.buttonContainer}>
@@ -141,9 +177,10 @@ const styles = StyleSheet.create({
 
 const mapDispatchToProps = dispatch => {
     return{
-        endTripSubmit : (totalFare, cardAmount, cashAmount, destLat, destLong ) => dispatch(endTrip(totalFare, cardAmount, cashAmount, destLat, destLong )),
+        endTripSubmit : (tripDetails ) => dispatch(endTrip(tripDetails )),
         newTrip : () => dispatch(newTrip()),
-        dismissModal: (dismissModalValue) => dispatch(dismissModal(dismissModalValue))
+        dismissModal: (dismissModalValue) => dispatch(dismissModal(dismissModalValue)),
+        onStartTrip : (alreadyExists, successStatTrip, startTripSubmit) => dispatch(onStartTrip(alreadyExists, successStatTrip, startTripSubmit))
     }
 }
 

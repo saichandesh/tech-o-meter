@@ -3,3 +3,7 @@ export const GET_USER = 'GET_USER';
 export const END_TRIP = 'END_TRIP';
 export const NEW_TRIP = 'NEW_TRIP';
 export const DISMISS_MODAL = 'DISMISS_MODAL';
+export const EXPENSE_SUBMIT = 'EXPENSE_SUBMIT';
+export const TRIP_HISTORY_SUBMIT = 'TRIP_HISTORY_SUBMIT';
+export const SETTINGS_SUBMIT = 'SETTINGS_SUBMIT';
+export const START_TRIP = 'START_TRIP';

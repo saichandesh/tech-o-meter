@@ -3,7 +3,7 @@ const databaseConfig = require('../databaseConfig');
 const login = (req,res,conn, responseObj) => {
 
     const body = req.body;
-    
+
     let sql = `SELECT CabID from ${databaseConfig.databaseName}.${databaseConfig.tableNames.Cabs} WHERE CabNumber = '${body.cabNumber}'`;
 
     conn.query(sql, (err, result) => {
@@ -29,8 +29,8 @@ const login = (req,res,conn, responseObj) => {
                                 res.status(501).json("Passwords doesn't match");
                             }else{
     
-                                sql = `select * from ${databaseConfig.databaseName}.${databaseConfig.tableNames.LoginHistory} where UserID = ${UserID} ORDER BY LoginTime DESC`;
-    
+                                sql = `select * from ${databaseConfig.databaseName}.${databaseConfig.tableNames.LoginHistory} where UserID = ${UserID} ORDER BY LoginID DESC`;
+                                
                                 conn.query(sql, (err, result) => {
                                     if (err) {
                                         res.status(501).json(err);
@@ -48,15 +48,16 @@ const login = (req,res,conn, responseObj) => {
                                                             if (err) {
                                                                 res.status(501).json(err);
                                                             } else {
-                                                                sql = `select LoginID from ${databaseConfig.databaseName}.${databaseConfig.tableNames.LoginHistory} where UserID = ${UserID} and CabID = ${CabID} and LoginTime = '${body.loginTime}'`;
-        
-                                                                conn.query(sql, (err, result) => {
+                                                                sql = `select LoginID from ${databaseConfig.databaseName}.${databaseConfig.tableNames.LoginHistory} where UserID = ${UserID} ORDER BY LoginID DESC`;
+                                                                
+                                                                conn.query(sql, (err, results) => {
                                                                     if(err){
                                                                         res.status(501).json(err);
                                                                     }else{
                                                                         responseObj.message = 'Login Successfully';
                                                                         responseObj.data = {
-                                                                            loginID : result[0].LoginID
+                                                                            loginID : results[0].LoginID,
+                                                                            UserID : UserID
                                                                         }
                                                                         res.json(responseObj);
                                                                     }
@@ -68,11 +69,12 @@ const login = (req,res,conn, responseObj) => {
                                             }else{
                                                 // insert into login history
                                                 sql = `insert into ${databaseConfig.databaseName}.${databaseConfig.tableNames.LoginHistory}(UserID, CabID, LoginTime) values(${UserID}, ${CabID}, '${body.loginTime}')`
+                                                
                                                 conn.query(sql, (err, result) => {
                                                     if (err) {
                                                         res.status(501).json(err);
                                                     } else {
-                                                        sql = `select LoginID from ${databaseConfig.databaseName}.${databaseConfig.tableNames.LoginHistory} where UserID = ${UserID} and CabID = ${CabID} and LoginTime = '${body.loginTime}'`;
+                                                        sql = `select LoginID from ${databaseConfig.databaseName}.${databaseConfig.tableNames.LoginHistory} where UserID = ${UserID} ORDER BY LoginID DESC`;
         
                                                         conn.query(sql, (err, result) => {
                                                             if(err){
@@ -80,7 +82,8 @@ const login = (req,res,conn, responseObj) => {
                                                             }else{
                                                                 responseObj.message = 'Login Successfully';
                                                                 responseObj.data = {
-                                                                    loginID : result[0].LoginID
+                                                                    loginID : result[0].LoginID,
+                                                                    UserID : UserID
                                                                 }
                                                                 res.json(responseObj);
                                                             }
@@ -89,7 +92,28 @@ const login = (req,res,conn, responseObj) => {
                                                 }); 
                                             }
                                         }else{
-                                            res.status(501).json("Please Try Again");
+                                            // insert into login history
+                                            sql = `insert into ${databaseConfig.databaseName}.${databaseConfig.tableNames.LoginHistory}(UserID, CabID, LoginTime) values(${UserID}, ${CabID}, '${body.loginTime}')`
+                                            conn.query(sql, (err, result) => {
+                                                if (err) {
+                                                    res.status(501).json(err);
+                                                } else {
+                                                    sql = `select LoginID from ${databaseConfig.databaseName}.${databaseConfig.tableNames.LoginHistory} where UserID = ${UserID} ORDER BY LoginID DESC`;
+    
+                                                    conn.query(sql, (err, result) => {
+                                                        if(err){
+                                                            res.status(501).json(err);
+                                                        }else{
+                                                            responseObj.message = 'Login Successfully';
+                                                            responseObj.data = {
+                                                                loginID : result[0].LoginID,
+                                                                UserID : UserID
+                                                            }
+                                                            res.json(responseObj);
+                                                        }
+                                                    });
+                                                }
+                                            }); 
                                         }
                                     }
                                 });                          

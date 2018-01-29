@@ -4,11 +4,17 @@ import { View,
         StatusBar,
         Picker,
         TextInput,
-        KeyboardAvoidingView } from 'react-native';
+        KeyboardAvoidingView,
+        Platform,
+        AsyncStorage } from 'react-native';
 import Spinner from 'react-native-loading-spinner-overlay';
 import { Button } from 'react-native-elements';
 import DatePicker from 'react-native-datepicker'
 import moment from 'moment';
+import Toast from 'react-native-simple-toast';
+import { logOut, validatedLogin, tripHistorySubmit, onTripHistorySubmitted} from '../../store/actions/index';
+import { Navigation } from 'react-native-navigation';
+import { connect } from 'react-redux';
 
 class TripHistoryScreen extends Component{
 
@@ -33,14 +39,13 @@ class TripHistoryScreen extends Component{
     }
 
     state = {
-        expenseType : 'fuel',
         isSubmiting : false,
-        cabNumber : 'Adfd',
-        cashAmount : 0,
-        totalAmount : 0,
+        cabNumber : null,
+        cashAmount : null,
+        totalAmount : null,
         startDate: moment(new Date().getTime()).format('DD-MM-YYYY   hh:mm:ss a'),
         endDate: moment(new Date().getTime()).format('DD-MM-YYYY   hh:mm:ss a'),
-        tripDistance: 0
+        tripDistance: null
     }
     
     constructor(props){
@@ -48,10 +53,124 @@ class TripHistoryScreen extends Component{
         this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent);
     }
 
-    onSubmit = () =>{
-        this.setState({
-            isSubmiting : true
+    componentWillMount(){
+        AsyncStorage.getItem('cabnumber', (err, res) => {
+            if(!err){
+                this.setState({
+                    cabNumber : res
+                })
+            }
         });
+    }
+
+    componentWillReceiveProps(nextProps){
+        if(nextProps.tripHistorySubmitState){
+            this.setState({
+                isSubmiting : false,
+                cashAmount : null,
+                totalAmount : null,
+                startDate: moment(new Date().getTime()).format('DD-MM-YYYY   hh:mm:ss a'),
+                endDate: moment(new Date().getTime()).format('DD-MM-YYYY   hh:mm:ss a'),
+                tripDistance: null
+            });
+            if(nextProps.successTripHistorySubmit){
+                Toast.show(`Trip History Submitted Succesfully`);
+            }else{
+                Toast.show(`Error in submitting trip history. Check the details and try again`);
+            }
+        }
+        
+        if(nextProps.alreadyExists){
+            Toast.show(`User logged in another device`);
+            this.props.logout();
+            
+            let keys = ['tripStarted', 'username', 'cabnumber', 'loginid'];
+            AsyncStorage.multiRemove(keys, (err) => {
+                if(err === null ){
+                    this.props.onLogOut(false);
+                    this.props.navigator.toggleDrawer({
+                        side: 'left',
+                        animated: true,
+                        to: 'closed'
+                    });
+                    AsyncStorage.removeItem('userLogged', (err) => {
+                        if(!err){
+                            if(Platform.OS == 'ios'){
+                                Navigation.startSingleScreenApp({
+                                    screen: {
+                                        screen: 'tripOmeter.LoginScreen',
+                                        title: '',
+                                        navigatorStyle: {
+                                        navBarHidden: true
+                                        }
+                                    }
+                                    });
+                            }else{
+                                this.props.navigator.resetTo({
+                                    screen: 'tripOmeter.LoginScreen',
+                                    title: ''
+                                });
+                            }
+                        }else{
+                            alert(err);
+                        }
+                    });
+                }else{
+                    alert(err);
+                }
+            });
+        }
+    }
+
+    onSubmit = () => {
+
+        if(this.state.cabNumber === null || this.state.cashAmount === null || this.state.totalAmount === null
+        || this.state.tripDistance === null){
+            this.setState({
+                isSubmiting : false
+            });
+            
+            Toast.show(`Fields can't be null`);
+            
+        }else if(this.state.endDate === this.state.startDate){
+            this.setState({
+                isSubmiting : false
+            });
+            Toast.show(`Start and End date for a trip can't be same`);
+        }else if(parseInt(this.state.cashAmount) > parseInt(this.state.totalAmount)){
+            this.setState({
+                isSubmiting : false
+            });
+            Toast.show(`Cash amount can't be greater than total trip amount`);
+        }else{
+            this.props.onTripHistorySubmitted(false, false, false);
+            this.setState({
+                isSubmiting : true
+            });
+    
+            AsyncStorage.multiGet(['loginid', 'userid'], (errors, res) => {
+                if(errors === null){
+                    
+                    let tripHistoryDetails = {
+                        cabNumber : this.state.cabNumber,
+                        cashAmount : this.state.cashAmount,
+                        totalAmount : this.state.totalAmount,
+                        startDate: this.state.startDate,
+                        endDate: this.state.endDate,
+                        totalDistance: parseInt(this.state.tripDistance),
+                        loginID : parseInt(res[0][1]),
+                        userID : parseInt(res[1][1])
+                    }
+    
+                    this.props.tripHistorySubmit(tripHistoryDetails);
+                }else{
+                    this.setState({
+                        isSubmiting : false
+                    });
+                    Toast.show(`Error, Try again..`);
+                }
+            });
+        }
     }
 
     render(){
@@ -86,7 +205,16 @@ class TripHistoryScreen extends Component{
                                         borderWidth : 0
                                     }
                                 }}
-                                onDateChange={(date) => {this.setState({startDate: date})}}
+                                maxDate = {this.state.startDate}
+                                onDateChange={(date) => {
+                                    if(date > this.state.startDate){
+                                        Toast.show(`Time can't be in future`);
+                                    }else{
+                                        this.setState({
+                                            startDate : date
+                                        })
+                                    }
+                                }}
                             />
                         </View>
                         <Text style={styles.datepickertext}>End Time</Text>
@@ -111,7 +239,18 @@ class TripHistoryScreen extends Component{
                                         borderWidth : 0
                                     }
                                 }}
-                                onDateChange={(date) => {this.setState({endDate: date})}}
+                                maxDate = {this.state.endDate}
+                                onDateChange={(date) => {
+                                    if(date > this.state.endDate){
+                                        Toast.show(`Time can't be in future`);
+                                    }else if(this.state.startDate === date){
+                                        Toast.show(`start and end trip times can't be same`);
+                                    }else{
+                                        this.setState({
+                                            endDate : date
+                                        })
+                                    }
+                                }}
                             />
                         </View>
                         <KeyboardAvoidingView behavior = "padding">
@@ -134,6 +273,7 @@ class TripHistoryScreen extends Component{
                                         onSubmitEditing={(event) => { 
                                             this.refs.ThirdInput.focus(); 
                                         }}
+                                        value = {this.state.tripDistance}
                                         onChangeText={(text) => this.setState({tripDistance:text})}/>
                             <Text style={styles.labelText}>Total Trip Amount (Rs.)</Text>
                             <TextInput  ref='ThirdInput'
@@ -145,6 +285,7 @@ class TripHistoryScreen extends Component{
                                         onSubmitEditing={(event) => { 
                                             this.refs.FourthTrip.focus(); 
                                         }}
+                                        value = {this.state.totalAmount}
                                         onChangeText={(text) => this.setState({totalAmount:text})}/>
                             <Text style={styles.labelText}>Cash Amount (Rs.)</Text>
                             <TextInput  ref='FourthTrip'
@@ -156,6 +297,7 @@ class TripHistoryScreen extends Component{
                                         onSubmitEditing={(event) => { 
                                             this.onSubmit() 
                                         }}
+                                        value = {this.state.cashAmount}
                                         onChangeText={(text) => this.setState({cashAmount:text})}/>
                         </KeyboardAvoidingView>
                         <Button     buttonStyle={styles.button}
@@ -217,4 +359,21 @@ const styles = {
     }
 }
 
-export default TripHistoryScreen;
+const mapStateToProps = state => {
+    return {
+        alreadyExists : state.user.alreadyExists,
+        tripHistorySubmitState : state.user.tripHistorySubmit,
+        successTripHistorySubmit : state.user.successTripHistorySubmit
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        logout : () => dispatch(logOut()),
+        onLogOut : logout => dispatch(validatedLogin(logout)),
+        tripHistorySubmit : (tripHistoryDetails) => dispatch(tripHistorySubmit(tripHistoryDetails)),
+        onTripHistorySubmitted : (alreadyExists, successTripHistorySubmit, tripHistorySubmit) => dispatch(onTripHistorySubmitted(alreadyExists, successTripHistorySubmit, tripHistorySubmit)),
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TripHistoryScreen);

@@ -17,7 +17,7 @@ import startFuelForm from '../FuelForm/fuelTab';
 import startTripTab from '../TripHistory/tripTab';
 import startSettingsTab from '../Settings/settingsTab';
 
-import { validatedLogin } from '../../store/actions/index';
+import { validatedLogin, logOut } from '../../store/actions/index';
 
 class SideDrawerScreen extends Component{
 
@@ -65,8 +65,12 @@ class SideDrawerScreen extends Component{
                 startSettingsTab();
                 break;
             case 'Sign Out':
-                AsyncStorage.removeItem('tripStarted', (err) => {
-                    if(!err){
+
+                this.props.logout();
+
+                let keys = ['tripStarted', 'username', 'cabnumber', 'loginid'];
+                AsyncStorage.multiRemove(keys, (err) => {
+                    if(err === null ){
                         this.props.onLogOut(false);
                         this.props.navigator.toggleDrawer({
                             side: 'left',
@@ -181,7 +185,8 @@ const styles = StyleSheet.create({
 
 const mapDispatchToProps = dispatch => {
     return {
-        onLogOut : logout => dispatch(validatedLogin(logout))
+        onLogOut : logout => dispatch(validatedLogin(logout)),
+        logout : () => dispatch(logOut())
     }
 }
 

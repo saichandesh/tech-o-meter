@@ -2,8 +2,8 @@ const databaseConfig = require('../databaseConfig');
 
 const logout = (req,res,conn, responseObj) => {
     const body = req.body;
-
-    sql = `update ${databaseConfig.databaseName}.${databaseConfig.tableNames.LoginHistory} set LogoutTime = '${body.logoutTIme}' where LoginID = ${body.loginID}`;
+    
+    sql = `update ${databaseConfig.databaseName}.${databaseConfig.tableNames.LoginHistory} set LogoutTime = '${body.logoutTime}' where LoginID = ${body.loginID}`;
     
     conn.query(sql, (err, result) => {
         if(err){

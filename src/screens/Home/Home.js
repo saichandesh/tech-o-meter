@@ -16,11 +16,15 @@ import KeepAwake from 'react-native-keep-awake';
 import moment from "moment";
 import { Button } from 'react-native-elements';
 import { connect} from 'react-redux';
-
+import Spinner from 'react-native-loading-spinner-overlay';
 import avatar from '../../assests/avatar.png';
 import startEndTrip from '../EndTrip/endTripTab';
 import {newTrip, dismissModal} from '../../store/actions/index';
 import BackgroundTimer from 'react-native-background-timer';
+import Toast from 'react-native-simple-toast';
+import { logOut, validatedLogin, startTrip, onStartTrip } from '../../store/actions/index';
+import { Navigation } from 'react-native-navigation';
+
 
 const intervalId = BackgroundTimer.setInterval(() => {
     navigator.geolocation.getCurrentPosition(
@@ -57,7 +61,11 @@ class HomeScreen extends Component{
         intervalRefHandler : null,
         appState: AppState.currentState,
         userName : null,
-        cabNumber : null
+        cabNumber : null,
+        startTime : null,
+        isSubmiting : false,
+        tripLocationStatus : null,
+        tripTimeStatus : null
     };
 
     constructor(props){
@@ -72,9 +80,7 @@ class HomeScreen extends Component{
         });
         
         AsyncStorage.multiGet(['username', 'cabnumber'], (errors, result) => {
-            
             if(errors === null){
-                console.log(JSON.stringify(result));
                 this.setState({
                     userName : result[0][1],
                     cabNumber : result[1][1]
@@ -106,9 +112,78 @@ class HomeScreen extends Component{
     componentWillReceiveProps(nextProps){
         if(nextProps.endTripComplete){
             this.onEndTrip();
+            this.setState({
+                isSubmiting : false
+            });
+            Toast.show(`Trip ended...`);
         }
         if(nextProps.dismissModal){
             this.onModalDismiss();
+        }
+
+        if(nextProps.startTripSubmitState){
+            this.setState({
+                isSubmiting : false
+            });
+
+            if(nextProps.successStatTrip && !nextProps.endTripComplete){
+                AsyncStorage.multiGet(['tripLocation', 'tripStartTime'], (errors, res) => {
+                    if(errors === null){
+                        this.setState({
+                            buttonStyle : styles.buttonEndTrip,
+                            buttonTitle : 'END TRIP',
+                            trip : `${res[0][1]}`,
+                            tripTime : `${res[1][1]}`,
+                            error: null,
+                            tripLocationStatus : `Trip Start Locaion`,
+                            tripTimeStatus : `Trip Start Time`
+                        });
+                    }
+                });
+                Toast.show(`Trip Started...`);
+            }else if(!nextProps.successStatTrip){
+                Toast.show(`Error in connection. Check the details and try again`);
+            }
+        }
+        if(nextProps.alreadyExists){
+            Toast.show(`User logged in another device`);
+            this.props.logout();
+            
+            let keys = ['tripStarted', 'username', 'cabnumber', 'loginid'];
+            AsyncStorage.multiRemove(keys, (err) => {
+                if(err === null ){
+                    this.props.onLogOut(false);
+                    this.props.navigator.toggleDrawer({
+                        side: 'left',
+                        animated: true,
+                        to: 'closed'
+                    });
+                    AsyncStorage.removeItem('userLogged', (err) => {
+                        if(!err){
+                            if(Platform.OS == 'ios'){
+                                Navigation.startSingleScreenApp({
+                                    screen: {
+                                        screen: 'tripOmeter.LoginScreen',
+                                        title: '',
+                                        navigatorStyle: {
+                                        navBarHidden: true
+                                        }
+                                    }
+                                    });
+                            }else{
+                                this.props.navigator.resetTo({
+                                    screen: 'tripOmeter.LoginScreen',
+                                    title: ''
+                                });
+                            }
+                        }else{
+                            alert(err);
+                        }
+                    });
+                }else{
+                    alert(err);
+                }
+            });
         }
     }
 
@@ -138,6 +213,8 @@ class HomeScreen extends Component{
             buttonTitle : 'START TRIP',
             trip : null,
             tripTime: null,
+            tripLocationStatus : null,
+            tripTimeStatus : null,
             modalStyle : styles.dismissModal
         });
         AsyncStorage.setItem('tripStarted', 'false');
@@ -147,21 +224,46 @@ class HomeScreen extends Component{
         this.setState({
             modalStyle : styles.modal
         });
+        this.props.onStartTrip(false, false, false);
         this.props.onDismissModal(false);
         startEndTrip();
     }
 
     onStratTrip = () => {
         this.setState({
-            buttonStyle : styles.buttonEndTrip,
-            buttonTitle : 'END TRIP',
-            trip : `Trip Start Locaion - New York`,
-            tripTime : `Trip Start Time\n${this.state.date} - ${this.state.time}`,
-            error: null
+            isSubmiting : true
         });
-        AsyncStorage.setItem('tripStarted', 'true');
-        AsyncStorage.setItem('tripLocation', 'New York');
-        AsyncStorage.setItem('tripStartTime', `${this.state.date} - ${this.state.time}`);
+
+        this.props.onStartTrip(false, false, false);
+
+        AsyncStorage.multiGet(['loginid', 'userid'], (errors, res) => {
+            if(errors === null){
+                let tripDetails = {
+                    lat : null,
+                    long : null,
+                    startTime : moment(new Date().getTime()).format('DD-MM-YYYY   hh:mm:ss a'),
+                    loginID : parseInt(res[0][1]),
+                    userID : parseInt(res[1][1])
+                }
+
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        tripDetails.lat = position.coords.latitude;
+                        tripDetails.long = position.coords.longitude;
+                        this.setState({
+                            latitude : tripDetails.lat,
+                            longitude : tripDetails.long,
+                            startTime : tripDetails.startTime 
+                        });
+                        this.props.startTrip(tripDetails);
+                    }, (error) => {
+                        this.setState({
+                            isSubmiting : false
+                        });
+                       Toast.show(`Error in starting the trip. Trya again...`)
+                });
+            }
+        });
     }
 
     startedTrip = () => {
@@ -172,16 +274,18 @@ class HomeScreen extends Component{
         AsyncStorage.getItem('tripLocation', (err, res) => {
             if(!err){
                 tripName = res;
-                AsyncStorage.getItem('tripStartTime', (err, res) => {
-                    if(!err){
+                AsyncStorage.multiGet(['tripLocation', 'tripStartTime'], (errors, res) => {
+                    if(errors === null){
                         tripStartTime = res;
                         this.props.onDismissModal(false);
                         this.setState({
                             buttonStyle : styles.buttonEndTrip,
                             buttonTitle : 'END TRIP',
-                            trip : `Trip Start Locaion - ${tripName}`,
-                            tripTime : `Trip Start Time\n${tripStartTime}`,
-                            error: null
+                            trip : `${res[0][1]}`,
+                            tripTime : `${res[1][1]}`,
+                            error: null,
+                            tripLocationStatus : `Trip Start Locaion`,
+                            tripTimeStatus : `Trip Start Time`
                         });
                     }else{
                         this.onEndTrip();
@@ -220,6 +324,9 @@ class HomeScreen extends Component{
                     <Text style={styles.inputText}>Cab Number : {this.state.cabNumber}</Text> 
                 </View>
                 <View style={styles.container}>
+                    <Spinner visible={this.state.isSubmiting} 
+                            textContent={''} 
+                            extStyle={{color: 'black'}} />
                     <Text style={styles.dateText}>
                         {this.state.date}
                     </Text>
@@ -228,8 +335,14 @@ class HomeScreen extends Component{
                     </Text>
                     <KeepAwake />
               </View>
+              <Text style={styles.tripInfoStatus}>
+                        {this.state.tripLocationStatus}
+              </Text>
               <Text style={styles.tripInfo}>
                   {this.state.trip}
+              </Text>
+              <Text style={styles.tripInfoStatus}>
+                        {this.state.tripTimeStatus}
               </Text>
               <Text style={styles.tripInfo}>
                   {this.state.tripTime}
@@ -263,7 +376,7 @@ const styles = StyleSheet.create({
     },
     container : {
         backgroundColor : 'black',
-        margin : '10%',
+        margin : '8%',
         justifyContent : 'center',
         alignItems : 'center',
         padding : '5%',
@@ -280,16 +393,23 @@ const styles = StyleSheet.create({
     buttonStartTrip : {
         backgroundColor: '#04724b', 
         borderRadius: 10, 
-        marginTop : '10%',
+        marginTop : '5%',
     },
     buttonEndTrip : {
         backgroundColor: '#C6252F', 
         borderRadius: 10, 
-        marginTop : '10%'
+        marginTop : '2%'
     },
     tripInfo: {
         textAlign : 'center',
         color: 'black',
+        padding: '1%',
+        fontWeight: 'bold',
+        fontSize: 17
+    },
+    tripInfoStatus : {
+        color : '#2582bc',
+        textAlign : 'center',
         padding: '1%',
         fontWeight: 'bold',
         fontSize: 17
@@ -307,14 +427,20 @@ const styles = StyleSheet.create({
 const mapDispatchToProps = dispatch => {
     return{
         newTrip : () => dispatch(newTrip()),
-        onDismissModal : (dismissModalValue) => dispatch(dismissModal(dismissModalValue))
+        onDismissModal : (dismissModalValue) => dispatch(dismissModal(dismissModalValue)),
+        startTrip : (tripDetails) => dispatch(startTrip(tripDetails)),
+        onStartTrip : (alreadyExists, successStatTrip, startTripSubmit) => dispatch(onStartTrip(alreadyExists, successStatTrip, startTripSubmit)),
+        logout : () => dispatch(logOut()),
+        onLogOut : logout => dispatch(validatedLogin(logout)),
     }
 }
 
 const maptStateToProps = state => {
     return{
         endTripComplete : state.trip.endTripComplete,
-        dismissModal: state.trip.dismissModal
+        dismissModal: state.trip.dismissModal,
+        startTripSubmitState : state.user.startTripSubmit,
+        successStatTrip: state.user.successStatTrip
     }
 }
 

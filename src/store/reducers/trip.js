@@ -17,7 +17,7 @@ const tripReducer = (state = intialState, action) => {
         case NEW_TRIP :
             return {
                 ...state,
-                endTripComplete : action.endTripComplete
+                endTripComplete : action.endTripComplete,
             }
             break;
         case DISMISS_MODAL:

@@ -16,7 +16,7 @@ export const loginUser = (userName, password, cabNumber) => {
 
     return dispatch => {
 
-        let loginTime = moment(new Date().getTime()).format('YYYY-MM-DD HH:mm:ss');
+        let loginTime = moment(new Date().getTime()).format('DD-MM-YYYY   hh:mm:ss a');
         let body = JSON.stringify({
             cabNumber : cabNumber,
             userName : userName,
@@ -49,7 +49,8 @@ export const loginUser = (userName, password, cabNumber) => {
         .then(response => {
             if(response != undefined){
                 let loginID = response.data.loginID;
-                AsyncStorage.multiSet( [['username', userName], ['cabnumber', cabNumber], ['loginid', `${loginID}`]] , err => {
+                let UserID  = response.data.UserID
+                AsyncStorage.multiSet( [['username', userName], ['cabnumber', cabNumber], ['loginid', `${loginID}`], ['userid' , `${UserID}`]] , err => {
                     if(!err){
                         dispatch(validatedLogin(true, true));
                     }
@@ -64,11 +65,34 @@ export const getUser = () => {
     let userName = null;
     let cabNumber = null;
 
-    // async call to server
-
     return {
         type : GET_USER,
         userName : userName,
         cabNumber : cabNumber
     }
 }
+
+export const logOut = () => {
+
+    return dispatch => {
+        let logoutTime = moment(new Date().getTime()).format('DD-MM-YYYY   hh:mm:ss a');
+        AsyncStorage.getItem('loginid', (err, res) => {
+            if(!err){
+                let loginID = parseInt(res);
+                let body = JSON.stringify({
+                    loginID : loginID,
+                    logoutTime : logoutTime
+                });
+                fetch(`${url}/logout`, {
+                    method: 'POST',
+                    headers: {
+                        Accept: 'application/json',
+                        'Content-Type': 'application/json',
+                    },
+                    body: body
+                });
+            }
+        });
+    }
+}
+

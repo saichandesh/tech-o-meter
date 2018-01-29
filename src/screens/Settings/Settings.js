@@ -4,11 +4,17 @@ import { View,
         StatusBar,
         Picker,
         TextInput,
-        KeyboardAvoidingView } from 'react-native';
+        KeyboardAvoidingView,
+        Platform,
+        AsyncStorage } from 'react-native';
 import Spinner from 'react-native-loading-spinner-overlay';
 import { Button } from 'react-native-elements';
 import DatePicker from 'react-native-datepicker'
 import moment from 'moment';
+import Toast from 'react-native-simple-toast';
+import { connect } from 'react-redux';
+import { logOut, validatedLogin, settingsSubmit, onSettingsSubmitted } from '../../store/actions/index';
+import { Navigation } from 'react-native-navigation';
 
 class SettingsScreen extends Component{
 
@@ -44,10 +50,105 @@ class SettingsScreen extends Component{
         this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent);
     }
 
+    componentWillReceiveProps(nextProps){
+        if(nextProps.settingsSubmitState){
+            this.setState({
+                currentPassword : null,
+                isSubmiting : false,
+                newPassWord: null,
+                reNewPassword: null
+            });
+            if(nextProps.successSettingsSubmit){
+                Toast.show(`Password Changed Succesfully`);
+            }else{
+                Toast.show(`Error in changing the password. Please try again`);
+            }
+        }
+        if(nextProps.alreadyExists){
+            Toast.show(`User logged in another device`);
+            this.props.logout();
+            
+            let keys = ['tripStarted', 'username', 'cabnumber', 'loginid'];
+            AsyncStorage.multiRemove(keys, (err) => {
+                if(err === null ){
+                    this.props.onLogOut(false);
+                    this.props.navigator.toggleDrawer({
+                        side: 'left',
+                        animated: true,
+                        to: 'closed'
+                    });
+                    AsyncStorage.removeItem('userLogged', (err) => {
+                        if(!err){
+                            if(Platform.OS == 'ios'){
+                                Navigation.startSingleScreenApp({
+                                    screen: {
+                                        screen: 'tripOmeter.LoginScreen',
+                                        title: '',
+                                        navigatorStyle: {
+                                        navBarHidden: true
+                                        }
+                                    }
+                                    });
+                            }else{
+                                this.props.navigator.resetTo({
+                                    screen: 'tripOmeter.LoginScreen',
+                                    title: ''
+                                });
+                            }
+                        }else{
+                            alert(err);
+                        }
+                    });
+                }else{
+                    alert(err);
+                }
+            });
+        }
+    }
+
+
     onSubmit = () =>{
-        this.setState({
-            isSubmiting : true
-        });
+        if(this.state.currentPassword === null || this.state.newPassWord === null || this.state.reNewPassword === null){
+            this.setState({
+                isSubmiting : false
+            });
+            
+            Toast.show(`Fields can't be null`);
+        }else if(this.state.newPassWord !== this.state.reNewPassword){
+            this.setState({
+                isSubmiting : false,
+                currentPassword: null,
+                newPassWord: null,
+                reNewPassword: null
+            });
+            
+            Toast.show(`Passwords don't match`);
+        }else{
+            this.props.onSettingsSubmitted(false, false, false);
+
+            this.setState({
+                isSubmiting : true
+            });
+    
+            AsyncStorage.multiGet(['loginid', 'userid'], (errors, res) => {
+                if(errors === null){
+                    
+                    let settings = {
+                        newPassword: this.state.newPassWord,
+                        currentPassword: this.state.currentPassword,
+                        loginID : parseInt(res[0][1]),
+                        userID : parseInt(res[1][1])
+                    }
+    
+                    this.props.settingsSubmit(settings);
+                }else{
+                    this.setState({
+                        isSubmiting : false
+                    });
+                    Toast.show(`Error, Try again..`);
+                }
+            });
+        }
     }
 
     render(){
@@ -70,6 +171,7 @@ class SettingsScreen extends Component{
                                         onSubmitEditing={(event) => { 
                                             this.refs.SecondInput.focus(); 
                                         }}
+                                        value = {this.state.currentPassword}
                                         onChangeText={(text) => this.setState({currentPassword:text})}/>
                             <TextInput  ref='SecondInput'
                                         placeholder="New Password" 
@@ -81,6 +183,7 @@ class SettingsScreen extends Component{
                                         onSubmitEditing={(event) => { 
                                             this.refs.ThirdInput.focus(); 
                                         }}
+                                        value = {this.state.newPassWord}
                                         onChangeText={(text) => this.setState({newPassWord:text})}/>
                             <TextInput  ref='ThirdInput'
                                         placeholder="Re-type Password" 
@@ -92,6 +195,7 @@ class SettingsScreen extends Component{
                                         onSubmitEditing={(event) => { 
                                             this.onSubmit() 
                                         }}
+                                        value = {this.state.reNewPassword}
                                         onChangeText={(text) => this.setState({reNewPassword:text})}/>
                         </View>
                     </KeyboardAvoidingView>
@@ -137,4 +241,21 @@ const styles = {
     }
 }
 
-export default SettingsScreen;
+const mapStateToProps = state => {
+    return {
+        alreadyExists : state.user.alreadyExists,
+        settingsSubmitState: state.user.settingsSubmit,
+        successSettingsSubmit : state.user.successSettingsSubmit
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        logout : () => dispatch(logOut()),
+        onLogOut : logout => dispatch(validatedLogin(logout)),
+        settingsSubmit : (settings) => dispatch(settingsSubmit(settings)),
+        onSettingsSubmitted : (alreadyExists, successSettingsSubmit, settingsSubmit) => dispatch(onSettingsSubmitted(alreadyExists, successSettingsSubmit, settingsSubmit)),
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SettingsScreen);

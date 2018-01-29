@@ -4,11 +4,17 @@ import { View,
         StatusBar,
         Picker,
         TextInput,
-        KeyboardAvoidingView } from 'react-native';
+        KeyboardAvoidingView,
+        Platform,
+        AsyncStorage } from 'react-native';
 import Spinner from 'react-native-loading-spinner-overlay';
 import { Button } from 'react-native-elements';
 import DatePicker from 'react-native-datepicker'
 import moment from 'moment';
+import Toast from 'react-native-simple-toast';
+import { connect } from 'react-redux';
+import { expenseSubmit, onExpenseSubmitted, logOut, validatedLogin} from '../../store/actions/index';
+import { Navigation } from 'react-native-navigation';
 
 class FuelFormScreen extends Component{
 
@@ -35,9 +41,9 @@ class FuelFormScreen extends Component{
     state = {
         expenseType : 'fuel',
         isSubmiting : false,
-        cabNumber : 'Adfd',
-        amount : 0,
-        date: moment(new Date().getTime()).format('DD-MM-YYYY')
+        cabNumber : null,
+        amount : null,
+        date: moment(new Date().getTime()).format('DD-MM-YYYY   hh:mm:ss a')
     }
     
     constructor(props){
@@ -45,10 +51,112 @@ class FuelFormScreen extends Component{
         this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent);
     }
 
-    onSubmit = () =>{
-        this.setState({
-            isSubmiting : true
+    componentWillMount(){
+        AsyncStorage.getItem('cabnumber', (err, res) => {
+            if(!err){
+                this.setState({
+                    cabNumber : res
+                })
+            }
         });
+    }
+
+    componentWillReceiveProps(nextProps){
+        if(nextProps.expenseSubmitState){
+            this.setState({
+                expenseType : 'fuel',
+                isSubmiting : false,
+                amount : null,
+                date: moment(new Date().getTime()).format('DD-MM-YYYY   hh:mm:ss a'),
+            });
+            if(nextProps.successExpenseSubmit){
+                Toast.show(`Expense Submitted Succesfully`);
+            }else{
+                Toast.show(`Error in submitting expense. Check the details and try again`);
+            }
+        }
+        if(nextProps.alreadyExists){
+            Toast.show(`User logged in another device`);
+            this.props.logout();
+            
+            let keys = ['tripStarted', 'username', 'cabnumber', 'loginid'];
+            AsyncStorage.multiRemove(keys, (err) => {
+                if(err === null ){
+                    this.props.onLogOut(false);
+                    this.props.navigator.toggleDrawer({
+                        side: 'left',
+                        animated: true,
+                        to: 'closed'
+                    });
+                    AsyncStorage.removeItem('userLogged', (err) => {
+                        if(!err){
+                            if(Platform.OS == 'ios'){
+                                Navigation.startSingleScreenApp({
+                                    screen: {
+                                        screen: 'tripOmeter.LoginScreen',
+                                        title: '',
+                                        navigatorStyle: {
+                                        navBarHidden: true
+                                        }
+                                    }
+                                    });
+                            }else{
+                                this.props.navigator.resetTo({
+                                    screen: 'tripOmeter.LoginScreen',
+                                    title: ''
+                                });
+                            }
+                        }else{
+                            alert(err);
+                        }
+                    });
+                }else{
+                    alert(err);
+                }
+            });
+        }
+    }
+
+    onSubmit = () => {
+        if(this.state.expenseType === 'maintenance'){
+            this.setState({
+                isSubmiting : false
+            });
+            Toast.show(`Maintenance is not supported yet..`);
+        }else{
+            if(this.state.amount === null || this.state.cabNumber === null){
+                Toast.show(`Fields can't be null`);
+                this.setState({
+                    isSubmiting : false
+                });
+            }else{
+                this.props.onExpenseSubmitted(false, false, false);
+                this.setState({
+                    isSubmiting : true
+                });
+    
+                AsyncStorage.multiGet(['loginid', 'userid'], (errors, res) => {
+                    if(errors === null){
+                        
+                        let expense = {
+                            expenseType : this.state.expenseType,
+                            cabNumber : this.state.cabNumber,
+                            amount : this.state.amount,
+                            date : this.state.date,
+                            loginID : parseInt(res[0][1]),
+                            userID : parseInt(res[1][1])
+                        }
+    
+                        this.props.onExpenseSubmit(expense);
+                    }else{
+                        this.setState({
+                            isSubmiting : false
+                        });
+                        Toast.show(`Error, Try again..`);
+                    }
+                });
+            }
+        }
     }
 
     render(){
@@ -75,9 +183,9 @@ class FuelFormScreen extends Component{
                             <DatePicker
                                 style={styles.datepicker}
                                 date={this.state.date}
-                                mode="date"
+                                mode="datetime"
                                 placeholder="select date"
-                                format="DD-MM-YYYY"
+                                format="DD-MM-YYYY   hh:mm:ss a"
                                 confirmBtnText="Confirm"
                                 cancelBtnText="Cancel"
                                 customStyles={{
@@ -92,7 +200,17 @@ class FuelFormScreen extends Component{
                                         borderWidth : 0
                                     }
                                 }}
-                                onDateChange={(date) => {this.setState({date: date})}}
+                                maxDate = {this.state.date}
+                                onDateChange={(date) => {
+                                        if(date > this.state.date){
+                                            Toast.show(`Time can't be in future`);
+                                        }else{
+                                            this.setState({
+                                                date : date
+                                            })
+                                        }
+                                    }
+                                }
                             />
                         </View>
                         <KeyboardAvoidingView behavior = "padding">
@@ -101,13 +219,18 @@ class FuelFormScreen extends Component{
                                         style= {styles.inputText} 
                                         value = {this.state.cabNumber}
                                         underlineColorAndroid='transparent'
+                                        onSubmitEditing={(event) => { 
+                                            this.refs.FirstRef.focus(); 
+                                        }}
                                         onChangeText={(text) => this.setState({cabNumber:text})}/>
                             <Text style={styles.labelText}>Total Amount (Rs.)</Text>
-                            <TextInput  placeholder="Total Amount" 
+                            <TextInput  ref='FirstRef'
+                                        placeholder="Total Amount" 
                                         style= {styles.inputText} 
                                         autoCorrect = {false} 
                                         underlineColorAndroid='transparent'
                                         keyboardType = 'numeric'
+                                        value = {this.state.amount}
                                         onSubmitEditing={(event) => { 
                                             this.onSubmit() 
                                         }}
@@ -176,4 +299,21 @@ const styles = {
     }
 }
 
-export default FuelFormScreen;
+const mapStateToProps = state => {
+    return {
+        alreadyExists : state.user.alreadyExists,
+        expenseSubmitState : state.user.expenseSubmit,
+        successExpenseSubmit: state.user.successExpenseSubmit
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onExpenseSubmit : (expense) => dispatch(expenseSubmit(expense)),
+        onExpenseSubmitted : (alreadyExists, successExpenseSubmit, expenseSubmit) => dispatch(onExpenseSubmitted(alreadyExists, successExpenseSubmit, expenseSubmit)),
+        logout : () => dispatch(logOut()),
+        onLogOut : logout => dispatch(validatedLogin(logout)),
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(FuelFormScreen);
