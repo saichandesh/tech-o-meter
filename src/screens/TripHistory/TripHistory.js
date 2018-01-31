@@ -20,8 +20,8 @@ class TripHistoryScreen extends Component{
 
     static navigatorStyle = {
         statusBarTextColorScheme: 'dark',
-        statusBarColor: '#04724b',
-        navBarBackgroundColor : '#33be89',
+        statusBarColor: '#205180',
+        navBarBackgroundColor : '#266287',
         navBarTitleTextCentered: true,
         navBarTextColor : 'white',
         navBarNoBorder: true,
@@ -176,8 +176,8 @@ class TripHistoryScreen extends Component{
     render(){
         return(
             <View>
-                <StatusBar backgroundColor="#04724b" 
-                           barStyle="dark-content"/>
+                <StatusBar backgroundColor="#205180" 
+                barStyle="dark-content"/>
                 <View style={styles.container}>
                     <Spinner visible={this.state.isSubmiting} 
                             textContent={''} 
@@ -320,21 +320,21 @@ const styles = {
         fontSize : 16,
         color: 'black',
         borderBottomWidth : 1,
-        borderColor : '#04724b',
+        borderColor : '#205180',
         marginBottom : '1%'
     },
     button : {
-        backgroundColor: '#04724b',
+        backgroundColor: '#266287',
         marginTop : 8
     },
     datepickercontainer: {
-        borderColor : '#04724b',
+        borderColor : '#205180',
         borderWidth: 1, 
         borderRadius : 50,
         padding : '1%'
     },
     endDatePickerContainer: {
-        borderColor : '#04724b',
+        borderColor : '#205180',
         borderWidth: 1, 
         borderRadius : 50,
         padding : '1%',
@@ -345,14 +345,14 @@ const styles = {
     },
     datepickertext: {
         textAlign : 'center',
-        color : '#04724b',
+        color : '#205180',
         fontSize : 17,
         marginTop : '2%',
         marginBottom: '2%'
     },
     labelText: {
         textAlign : 'center',
-        color : '#04724b',
+        color : '#205180',
         fontSize : 17,
         marginBottom : '-3%'
 

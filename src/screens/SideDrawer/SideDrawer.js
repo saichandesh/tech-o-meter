@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
     infoContainer: {
         width : '100%',
         height : '25%',
-        backgroundColor : '#33be89'
+        backgroundColor : '#266287'
     },
     inputText: {
         color : 'white',

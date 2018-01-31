@@ -39,8 +39,8 @@ class HomeScreen extends Component{
 
     static navigatorStyle = {
         statusBarTextColorScheme: 'dark',
-        statusBarColor: '#04724b',
-        navBarBackgroundColor : '#33be89',
+        statusBarColor: '#205180',
+        navBarBackgroundColor : '#266287',
         navBarTitleTextCentered: true,
         navBarTextColor : 'white',
         navBarNoBorder: true,
@@ -316,7 +316,7 @@ class HomeScreen extends Component{
     render(){
         return(
             <View style = {this.state.modalStyle}>
-                <StatusBar backgroundColor="#04724b" 
+                <StatusBar backgroundColor="#205180" 
                            barStyle="dark-content"/>
                 <View style={styles.imageContainer}>
                     <Image source={avatar} style={styles.image}/>
@@ -360,7 +360,7 @@ class HomeScreen extends Component{
 const styles = StyleSheet.create({
     imageContainer: {
         alignItems : 'center',
-        backgroundColor : '#33be89',
+        backgroundColor : '#266287',
         paddingBottom : 15
     },
     image : {
@@ -391,7 +391,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
     },
     buttonStartTrip : {
-        backgroundColor: '#04724b', 
+        backgroundColor: '#266287', 
         borderRadius: 10, 
         marginTop : '5%',
     },

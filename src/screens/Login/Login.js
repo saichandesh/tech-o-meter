@@ -19,7 +19,7 @@ import Spinner from 'react-native-loading-spinner-overlay';
 import Toast from 'react-native-simple-toast';
 import { Navigation } from 'react-native-navigation';
 
-import backgroundImage from '../../assests/login_screen_no_icon.png';
+import backgroundImage from '../../assests/background_image.jpg';
 import startHome from '../Home/homeTab';
 import {loginUser, validatedLogin } from '../../store/actions/index';
 
@@ -34,7 +34,7 @@ class LoginScreen extends Component{
 
     static navigatorStyle = {
         statusBarTextColorScheme: 'dark',
-        statusBarColor: '#04724b',
+        statusBarColor: '#266287',
         navBarHidden : true
     }
 
@@ -121,7 +121,7 @@ class LoginScreen extends Component{
                                  style={styles.backgroundImage}>                  
                     <Spinner visible={this.state.isLogging} textContent={'Signing In'} textStyle={{color: '#FFF'}} />
                     <KeyboardAvoidingView behavior = "padding">
-                            <StatusBar backgroundColor="#04724b" 
+                            <StatusBar backgroundColor="#205180" 
                                     barStyle="dark-content" 
                                     translucent={true} />
                                 <View >
@@ -186,13 +186,14 @@ const styles = StyleSheet.create({
         borderWidth : 1,
         borderRadius : 30,
         height : 45,
-        borderColor : '#a2f2d1',
-        backgroundColor : '#a2f2d1',
+        borderColor : 'black',
+        backgroundColor : '#D3D3D3',
         paddingLeft : 20
 
     },
     button : {
-        backgroundColor: '#04724b', 
+        backgroundColor: '#266287',
+        borderColor : 'white',
         borderRadius: 10, 
         marginTop : 30,
     }

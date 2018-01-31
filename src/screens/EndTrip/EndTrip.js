@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
     },
     text:{
         textAlign : 'center',
-        color : '#04724b',
+        color : '#205180',
         fontSize : 17,
         marginTop: '3%'
     },
@@ -158,10 +158,10 @@ const styles = StyleSheet.create({
         fontSize : 16,
         color: 'black',
         borderBottomWidth : 1,
-        borderColor : '#04724b',
+        borderColor : '#205180',
     },
     button : {
-        backgroundColor: '#04724b',
+        backgroundColor: '#266287',
         marginTop : 30,
     },
     cancelButton : {
