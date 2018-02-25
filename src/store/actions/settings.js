@@ -1,5 +1,6 @@
 import { url } from '../../config/config';
 import { SETTINGS_SUBMIT } from './actionTypes';
+import {setAlreadyExistsState} from './index';
 
 export const onSettingsSubmitted = (alreadyExists, successSettingsSubmit, settingsSubmit) => {
     return {
@@ -31,7 +32,7 @@ export const settingsSubmit = (settings) => {
                 if(res.status === 501){
                     dispatch(onSettingsSubmitted(false, false, true))
                 }else if(res.status === 403){
-                    dispatch(onSettingsSubmitted(true, false, true))
+                    dispatch(setAlreadyExistsState(true));
                 }else{
                     return res.json();
                 }

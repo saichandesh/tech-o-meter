@@ -16,6 +16,7 @@ import startHome from '../Home/homeTab';
 import startFuelForm from '../FuelForm/fuelTab';
 import startTripTab from '../TripHistory/tripTab';
 import startSettingsTab from '../Settings/settingsTab';
+import Toast from 'react-native-simple-toast';
 
 import { validatedLogin, logOut } from '../../store/actions/index';
 
@@ -66,41 +67,46 @@ class SideDrawerScreen extends Component{
                 break;
             case 'Sign Out':
 
-                this.props.logout();
-
-                let keys = ['tripStarted', 'username', 'cabnumber', 'loginid'];
-                AsyncStorage.multiRemove(keys, (err) => {
-                    if(err === null ){
-                        this.props.onLogOut(false);
-                        this.props.navigator.toggleDrawer({
-                            side: 'left',
-                            animated: true,
-                            to: 'closed'
-                        });
-                        AsyncStorage.removeItem('userLogged', (err) => {
-                            if(!err){
-                                if(Platform.OS == 'ios'){
-                                    Navigation.startSingleScreenApp({
-                                        screen: {
-                                            screen: 'tripOmeter.LoginScreen',
-                                            title: '',
-                                            navigatorStyle: {
-                                            navBarHidden: true
-                                            }
+                AsyncStorage.getItem('tripStarted', (err, res) => {
+                    if(!err && res === 'true'){
+                        Toast.show('Trip is in progress. End it before you sign out.');
+                    }else if(res === 'false'){
+                        this.props.logout();
+                        let keys = ['tripStarted', 'username', 'cabnumber', 'loginid'];
+                        AsyncStorage.multiRemove(keys, (err) => {
+                            if(err === null ){
+                                this.props.onLogOut(false);
+                                this.props.navigator.toggleDrawer({
+                                    side: 'left',
+                                    animated: true,
+                                    to: 'closed'
+                                });
+                                AsyncStorage.removeItem('userLogged', (err) => {
+                                    if(!err){
+                                        if(Platform.OS == 'ios'){
+                                            Navigation.startSingleScreenApp({
+                                                screen: {
+                                                    screen: 'tripOmeter.LoginScreen',
+                                                    title: '',
+                                                    navigatorStyle: {
+                                                    navBarHidden: true
+                                                    }
+                                                }
+                                                });
+                                        }else{
+                                            this.props.navigator.resetTo({
+                                                screen: 'tripOmeter.LoginScreen',
+                                                title: ''
+                                            });
                                         }
-                                        });
-                                }else{
-                                    this.props.navigator.resetTo({
-                                        screen: 'tripOmeter.LoginScreen',
-                                        title: ''
-                                    });
-                                }
+                                    }else{
+                                        alert(err);
+                                    }
+                                });
                             }else{
                                 alert(err);
                             }
                         });
-                    }else{
-                        alert(err);
                     }
                 });
                 break;

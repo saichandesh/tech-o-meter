@@ -51,6 +51,7 @@ class SettingsScreen extends Component{
     }
 
     componentWillReceiveProps(nextProps){
+        
         if(nextProps.settingsSubmitState){
             this.setState({
                 currentPassword : null,
@@ -63,46 +64,6 @@ class SettingsScreen extends Component{
             }else{
                 Toast.show(`Error in changing the password. Please try again`);
             }
-        }
-        if(nextProps.alreadyExists){
-            Toast.show(`User logged in another device`);
-            this.props.logout();
-            
-            let keys = ['tripStarted', 'username', 'cabnumber', 'loginid'];
-            AsyncStorage.multiRemove(keys, (err) => {
-                if(err === null ){
-                    this.props.onLogOut(false);
-                    this.props.navigator.toggleDrawer({
-                        side: 'left',
-                        animated: true,
-                        to: 'closed'
-                    });
-                    AsyncStorage.removeItem('userLogged', (err) => {
-                        if(!err){
-                            if(Platform.OS == 'ios'){
-                                Navigation.startSingleScreenApp({
-                                    screen: {
-                                        screen: 'tripOmeter.LoginScreen',
-                                        title: '',
-                                        navigatorStyle: {
-                                        navBarHidden: true
-                                        }
-                                    }
-                                    });
-                            }else{
-                                this.props.navigator.resetTo({
-                                    screen: 'tripOmeter.LoginScreen',
-                                    title: ''
-                                });
-                            }
-                        }else{
-                            alert(err);
-                        }
-                    });
-                }else{
-                    alert(err);
-                }
-            });
         }
     }
 

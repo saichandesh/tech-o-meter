@@ -22,7 +22,7 @@ import startEndTrip from '../EndTrip/endTripTab';
 import {newTrip, dismissModal} from '../../store/actions/index';
 import BackgroundTimer from 'react-native-background-timer';
 import Toast from 'react-native-simple-toast';
-import { logOut, validatedLogin, startTrip, onStartTrip } from '../../store/actions/index';
+import { logOut, validatedLogin, startTrip, onStartTrip,setAlreadyExistsState } from '../../store/actions/index';
 import { Navigation } from 'react-native-navigation';
 
 
@@ -110,6 +110,17 @@ class HomeScreen extends Component{
     }
 
     componentWillReceiveProps(nextProps){
+        if(nextProps.alreadyExists){
+            Toast.show(`User logged in another device`);
+            this.setState({
+                isSubmiting : false
+            });
+            Navigation.dismissAllModals({
+                animationType: 'slide-down'
+            });
+            this.props.onDismissModal(true);
+            this.onAlreadyUserExistslogOut();
+        }
         if(nextProps.endTripComplete){
             this.onEndTrip();
             this.setState({
@@ -127,63 +138,27 @@ class HomeScreen extends Component{
             });
 
             if(nextProps.successStatTrip && !nextProps.endTripComplete){
-                AsyncStorage.multiGet(['tripLocation', 'tripStartTime'], (errors, res) => {
-                    if(errors === null){
-                        this.setState({
-                            buttonStyle : styles.buttonEndTrip,
-                            buttonTitle : 'END TRIP',
-                            trip : `${res[0][1]}`,
-                            tripTime : `${res[1][1]}`,
-                            error: null,
-                            tripLocationStatus : `Trip Start Locaion`,
-                            tripTimeStatus : `Trip Start Time`
+                AsyncStorage.getItem('tripStarted', (err, res) => {
+                    if(!err && res === 'true'){
+                        AsyncStorage.multiGet(['tripLocation', 'tripStartTime'], (errors, res) => {
+                            if(errors === null){
+                                this.setState({
+                                    buttonStyle : styles.buttonEndTrip,
+                                    buttonTitle : 'END TRIP',
+                                    trip : `${res[0][1]}`,
+                                    tripTime : `${res[1][1]}`,
+                                    error: null,
+                                    tripLocationStatus : `Trip Start Locaion`,
+                                    tripTimeStatus : `Trip Start Time`
+                                });
+                            }
                         });
+                        Toast.show(`Trip Started...`);
                     }
                 });
-                Toast.show(`Trip Started...`);
             }else if(!nextProps.successStatTrip){
                 Toast.show(`Error in connection. Check the details and try again`);
             }
-        }
-        if(nextProps.alreadyExists){
-            Toast.show(`User logged in another device`);
-            this.props.logout();
-            
-            let keys = ['tripStarted', 'username', 'cabnumber', 'loginid'];
-            AsyncStorage.multiRemove(keys, (err) => {
-                if(err === null ){
-                    this.props.onLogOut(false);
-                    this.props.navigator.toggleDrawer({
-                        side: 'left',
-                        animated: true,
-                        to: 'closed'
-                    });
-                    AsyncStorage.removeItem('userLogged', (err) => {
-                        if(!err){
-                            if(Platform.OS == 'ios'){
-                                Navigation.startSingleScreenApp({
-                                    screen: {
-                                        screen: 'tripOmeter.LoginScreen',
-                                        title: '',
-                                        navigatorStyle: {
-                                        navBarHidden: true
-                                        }
-                                    }
-                                    });
-                            }else{
-                                this.props.navigator.resetTo({
-                                    screen: 'tripOmeter.LoginScreen',
-                                    title: ''
-                                });
-                            }
-                        }else{
-                            alert(err);
-                        }
-                    });
-                }else{
-                    alert(err);
-                }
-            });
         }
     }
 
@@ -233,7 +208,7 @@ class HomeScreen extends Component{
         this.setState({
             isSubmiting : true
         });
-
+        this.props.newTrip();
         this.props.onStartTrip(false, false, false);
 
         AsyncStorage.multiGet(['loginid', 'userid'], (errors, res) => {
@@ -260,7 +235,7 @@ class HomeScreen extends Component{
                         this.setState({
                             isSubmiting : false
                         });
-                       Toast.show(`Error in starting the trip. Trya again...`)
+                       Toast.show(`Error in starting the trip. Try again...`)
                 });
             }
         });
@@ -311,6 +286,47 @@ class HomeScreen extends Component{
         }else{
             this.onStratTrip();
         }
+    }
+
+    onAlreadyUserExistslogOut = () => {
+        this.props.setAlreadyExistsState();
+        this.props.logout();
+        
+        let keys = ['tripStarted', 'username', 'cabnumber', 'loginid'];
+        AsyncStorage.multiRemove(keys, (err) => {
+            if(err === null ){
+                this.props.onLogOut(false);
+                this.props.navigator.toggleDrawer({
+                    side: 'left',
+                    animated: true,
+                    to: 'closed'
+                });
+                AsyncStorage.removeItem('userLogged', (err) => {
+                    if(!err){
+                        if(Platform.OS == 'ios'){
+                            Navigation.startSingleScreenApp({
+                                screen: {
+                                    screen: 'tripOmeter.LoginScreen',
+                                    title: '',
+                                    navigatorStyle: {
+                                    navBarHidden: true
+                                    }
+                                }
+                                });
+                        }else{
+                            this.props.navigator.resetTo({
+                                screen: 'tripOmeter.LoginScreen',
+                                title: ''
+                            });
+                        }
+                    }else{
+                        alert(err);
+                    }
+                });
+            }else{
+                alert(err);
+            }
+        });
     }
 
     render(){
@@ -432,6 +448,7 @@ const mapDispatchToProps = dispatch => {
         onStartTrip : (alreadyExists, successStatTrip, startTripSubmit) => dispatch(onStartTrip(alreadyExists, successStatTrip, startTripSubmit)),
         logout : () => dispatch(logOut()),
         onLogOut : logout => dispatch(validatedLogin(logout)),
+        setAlreadyExistsState: () => dispatch(setAlreadyExistsState(false))
     }
 }
 
@@ -440,7 +457,8 @@ const maptStateToProps = state => {
         endTripComplete : state.trip.endTripComplete,
         dismissModal: state.trip.dismissModal,
         startTripSubmitState : state.user.startTripSubmit,
-        successStatTrip: state.user.successStatTrip
+        successStatTrip: state.user.successStatTrip,
+        alreadyExists: state.user.alreadyExists
     }
 }
 

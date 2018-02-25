@@ -1,5 +1,6 @@
 import { url } from '../../config/config';
 import { EXPENSE_SUBMIT } from './actionTypes';
+import {setAlreadyExistsState} from './index';
 
 export const onExpenseSubmitted = (alreadyExists, successExpenseSubmit, expenseSubmit) => {
     return {
@@ -31,7 +32,7 @@ export const expenseSubmit = (expense) => {
                 if(res.status === 501){
                     dispatch(onExpenseSubmitted(false, false, true))
                 }else if(res.status === 403){
-                    dispatch(onExpenseSubmitted(true, false, true))
+                    dispatch(setAlreadyExistsState(true));
                 }else{
                     return res.json();
                 }

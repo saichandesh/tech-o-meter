@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "/Users/sgurramkonda/tripOmeter/android/app/build/intermediates/res/merged/release/mipmap-xxhdpi/tripometer_icon.png",
+        "source": "/Users/sgurramkonda/tripOmeter/android/app/src/main/res/mipmap-xxhdpi/tripometer_icon.png"
+    },
+    {
+        "merged": "/Users/sgurramkonda/tripOmeter/android/app/build/intermediates/res/merged/release/mipmap-xxhdpi/tripometer.png",
+        "source": "/Users/sgurramkonda/tripOmeter/android/app/src/main/res/mipmap-xxhdpi/tripometer.png"
+    },
+    {
+        "merged": "/Users/sgurramkonda/tripOmeter/android/app/build/intermediates/res/merged/release/mipmap-xxhdpi/ic_launcher.png",
+        "source": "/Users/sgurramkonda/tripOmeter/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png"
+    }
+]

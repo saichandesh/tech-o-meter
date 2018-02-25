@@ -6,6 +6,7 @@ const startTrip = (req,res,conn, responseObj, googleMaps) => {
     const body = req.body;
 
     checkForMultiLogin(conn, body.loginID).then(alreadyExists => {
+        console.log(`alreadyExists ${alreadyExists}`);
         if(alreadyExists){
             res.status(403).json(`User Exists`);
         }else{
@@ -24,8 +25,6 @@ const startTrip = (req,res,conn, responseObj, googleMaps) => {
                         responseObj.data = {
                             tripID : result[0].TripID
                         }
-                        body.lat = 41.7508;
-                        body.long = -88.1535;
                         googleMaps.reverseGeocode({
                             latlng: [body.lat, body.long],
                         },(error, address) => {

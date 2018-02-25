@@ -1,4 +1,4 @@
-import { END_TRIP, NEW_TRIP, DISMISS_MODAL, TRIP_HISTORY_SUBMIT, START_TRIP } from './actionTypes';
+import { END_TRIP, NEW_TRIP, DISMISS_MODAL, TRIP_HISTORY_SUBMIT, START_TRIP, ALREADY_USER_EXISTS } from './actionTypes';
 import { url } from '../../config/config';
 import { AsyncStorage } from 'react-native';
 
@@ -31,7 +31,7 @@ export const endTrip = (tripDetails) => {
                 if(res.status === 501){
                     dispatch(onStartTrip(false, false, true));
                 }else if(res.status === 403){
-                    dispatch(onStartTrip(true, false, true));
+                    dispatch(setAlreadyExistsState(true));
                 }else{
                     return res.json();
                 }
@@ -63,6 +63,13 @@ export const onStartTrip = (alreadyExists, successStatTrip, startTripSubmit) => 
     }
 }
 
+export const setAlreadyExistsState = (alreadyExists) => {
+    return{
+        type : ALREADY_USER_EXISTS,
+        alreadyExists: alreadyExists
+    }
+}
+
 export const startTrip = (trip) => {
     return dispatch => {
         
@@ -84,7 +91,7 @@ export const startTrip = (trip) => {
                 if(res.status === 501){
                     dispatch(onStartTrip(false, false, true));
                 }else if(res.status === 403){
-                    dispatch(onStartTrip(true, false, true));
+                    dispatch(onStartTrip(true, null, null));
                 }else{
                     return res.json();
                 }
@@ -140,7 +147,7 @@ export const tripHistorySubmit = (tripHistory) => {
                 if(res.status === 501){
                     dispatch(onTripHistorySubmitted(false, false, true))
                 }else if(res.status === 403){
-                    dispatch(onTripHistorySubmitted(true, false, true))
+                    dispatch(setAlreadyExistsState(true));
                 }else{
                     return res.json();
                 }

@@ -1,4 +1,10 @@
-import { LOGIN_USER, GET_USER, VALIDATION, EXPENSE_SUBMIT, TRIP_HISTORY_SUBMIT, SETTINGS_SUBMIT, START_TRIP } from '../actions/actionTypes';
+import { LOGIN_USER, 
+    GET_USER, VALIDATION, 
+    EXPENSE_SUBMIT, 
+    TRIP_HISTORY_SUBMIT, 
+    SETTINGS_SUBMIT, 
+    START_TRIP,
+    ALREADY_USER_EXISTS } from '../actions/actionTypes';
 
 const intialState = {
     userName : null,
@@ -63,6 +69,12 @@ const userReducer = (state = intialState, action) => {
                 alreadyExists : action.alreadyExists,
                 successStatTrip : action.successStatTrip, 
                 startTripSubmit : action.startTripSubmit
+            }
+            break;
+        case ALREADY_USER_EXISTS:
+            return{
+                ...state,
+                alreadyExists: action.alreadyExists
             }
             break;
         default:

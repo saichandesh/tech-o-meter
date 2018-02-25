@@ -1,5 +1,5 @@
 const serverCredentails = {
-    host : '192.168.0.41',
+    host : '10.0.0.82',
     port : '8080'
 }
 

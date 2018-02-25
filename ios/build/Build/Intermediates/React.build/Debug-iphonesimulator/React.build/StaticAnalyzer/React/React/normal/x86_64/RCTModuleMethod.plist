@@ -6,7 +6,7 @@
 <string>Apple LLVM version 8.1.0 (clang-802.0.42)</string>
  <key>files</key>
  <array>
-  <string>/Users/sgurramkonda/tech-o-meter/node_modules/react-native/React/Base/RCTModuleMethod.mm</string>
+  <string>/Users/sgurramkonda/tripOmeter/node_modules/react-native/React/Base/RCTModuleMethod.mm</string>
  </array>
  <key>diagnostics</key>
  <array>
