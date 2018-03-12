@@ -17,6 +17,7 @@ import startFuelForm from '../FuelForm/fuelTab';
 import startTripTab from '../TripHistory/tripTab';
 import startSettingsTab from '../Settings/settingsTab';
 import Toast from 'react-native-simple-toast';
+import BackgroundTimer from 'react-native-background-timer';
 
 import { validatedLogin, logOut } from '../../store/actions/index';
 
@@ -70,7 +71,7 @@ class SideDrawerScreen extends Component{
                 AsyncStorage.getItem('tripStarted', (err, res) => {
                     if(!err && res === 'true'){
                         Toast.show('Trip is in progress. End it before you sign out.');
-                    }else if(res === 'false'){
+                    }else if(res === 'false' || res === null){
                         this.props.logout();
                         let keys = ['tripStarted', 'username', 'cabnumber', 'loginid'];
                         AsyncStorage.multiRemove(keys, (err) => {

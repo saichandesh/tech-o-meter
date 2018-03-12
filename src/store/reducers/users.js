@@ -4,7 +4,8 @@ import { LOGIN_USER,
     TRIP_HISTORY_SUBMIT, 
     SETTINGS_SUBMIT, 
     START_TRIP,
-    ALREADY_USER_EXISTS } from '../actions/actionTypes';
+    ALREADY_USER_EXISTS,
+    UPDATE_USER_TRACK_HISTORY } from '../actions/actionTypes';
 
 const intialState = {
     userName : null,
@@ -19,7 +20,8 @@ const intialState = {
     settingsSubmit : false,
     successSettingsSubmit : false,
     successStatTrip : false, 
-    startTripSubmit : false
+    startTripSubmit : false,
+    userTrackHistorystatus: null
 }
 
 
@@ -77,6 +79,11 @@ const userReducer = (state = intialState, action) => {
                 alreadyExists: action.alreadyExists
             }
             break;
+        case UPDATE_USER_TRACK_HISTORY:
+            return{
+                ...state,
+                userTrackHistorystatus: action.status
+            }
         default:
             return state;
     }

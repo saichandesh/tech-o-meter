@@ -1,8 +1,9 @@
-import { LOGIN_USER, GET_USER, VALIDATION } from './actionTypes';
+import { LOGIN_USER, GET_USER, VALIDATION, UPDATE_USER_TRACK_HISTORY } from './actionTypes';
 import { url } from '../../config/config';
 import moment from 'moment';
 import { AsyncStorage } from 'react-native';
-
+import Toast from 'react-native-simple-toast';
+import {onStartTrip} from './index';
 export const validatedLogin = (isLoggedIn, isValidation) => {
     return {
         type : LOGIN_USER,
@@ -96,3 +97,39 @@ export const logOut = () => {
     }
 }
 
+export const updateUserTrackHistoryStatus = status => {
+    return{
+        type: UPDATE_USER_TRACK_HISTORY,
+        status: status
+    }
+}
+
+export const userTrackHistory = (userTrackObj) => {
+    return dispatch => {
+        dispatch(updateUserTrackHistoryStatus(null));
+        fetch(`${url}/usertrackhistory`, {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(userTrackObj)
+        }).then( res => {
+            if(res !== undefined){
+                if(res.status === 501){
+                    dispatch(updateUserTrackHistoryStatus(false));
+                }else if(res.status === 403){
+                    dispatch(onStartTrip(true, null, null));
+                }else{
+                    dispatch(updateUserTrackHistoryStatus(true));
+                }
+            }else{
+                dispatch(updateUserTrackHistoryStatus(false));
+            }
+        }).catch( error => {
+           Toast.show('Error in tracking...');
+           dispatch(updateUserTrackHistoryStatus(false));
+        });
+    }
+        
+}

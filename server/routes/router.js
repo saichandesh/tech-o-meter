@@ -10,11 +10,18 @@ const startTrip = require('./startTrip');
 const endTrip = require('./endTrip');
 const tripHistory = require('./tripHistory');
 const userTrackHistory = require('./userTrackHistory');
-const googleMapsConfig = require('../googleMapsConfig');
 
-// Google Matrix Api
-const googleMaps = require('@google/maps').createClient({
-    key: googleMapsConfig.apiCredentials.key
+// // Google Distance Matrix Api
+// const googleDistanceMatrixApiClient = require('@google/maps').createClient({
+//     key: process.env.DISTANCEMATRIXAPIKEY
+// });
+
+// const googleGeoLocationApiClient = require('@google/maps').createClient({
+//     key: process.env.GEOLOCATIONAPIKEY
+// });
+
+const googleMapApiClient = require('@google/maps').createClient({
+    key: process.env.KEY
 });
 
 // Response handling
@@ -40,9 +47,9 @@ router.post('/login',(req,res) => login(req,res,conn, response));
 router.post('/logout',(req,res) => logout(req,res,conn, response));
 router.post('/expense',(req,res) => expense(req,res,conn, response));
 router.post('/settings',(req,res) => settings(req,res,conn, response));
-router.post('/starttrip',(req,res) => startTrip(req,res,conn, response,googleMaps));
-router.post('/endtrip',(req,res) => endTrip(req,res,conn, response,googleMaps));
+router.post('/starttrip',(req,res) => startTrip(req,res,conn, response,googleMapApiClient));
+router.post('/endtrip',(req,res) => endTrip(req,res,conn, response,googleMapApiClient));
 router.post('/triphistory',(req,res) => tripHistory(req,res,conn, response));
-router.post('/usertrackhistory',(req,res) => userTrackHistory(req,res,conn, response));
+router.post('/usertrackhistory',(req,res) => userTrackHistory(req,res,conn, response, googleMapApiClient));
 
 module.exports = router;

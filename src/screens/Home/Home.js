@@ -22,20 +22,61 @@ import startEndTrip from '../EndTrip/endTripTab';
 import {newTrip, dismissModal} from '../../store/actions/index';
 import BackgroundTimer from 'react-native-background-timer';
 import Toast from 'react-native-simple-toast';
-import { logOut, validatedLogin, startTrip, onStartTrip,setAlreadyExistsState } from '../../store/actions/index';
+import { logOut, validatedLogin, startTrip, onStartTrip,setAlreadyExistsState, userTrackHistory } from '../../store/actions/index';
 import { Navigation } from 'react-native-navigation';
 
-
-const intervalId = BackgroundTimer.setInterval(() => {
-    navigator.geolocation.getCurrentPosition(
-        (position) => {
-          console.log(`${position.coords.latitude} \n ${position.coords.longitude}`);
-        }, (error) => {
-           console.log(error)
-        });
-}, 5000);
-
 class HomeScreen extends Component{
+    userTrackHistoryObj;
+
+    intervalId = BackgroundTimer.setInterval(() => {
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                AsyncStorage.multiGet(['sourceLat', 'sourceLong', 'destLat', 'destLong','sourceTime','destTime','loginid'], 
+                (err, results) => {
+                    let currentLat = position.coords.latitude;
+                    let currentLong = position.coords.longitude;
+                    let currentTime = moment(new Date().getTime()).format('DD-MM-YYYY   hh:mm:ss a');
+                    if(err){
+                        Toast.show('Error in getting user track details');
+                    }else{
+                        let sourceLat,sourceLong,destLat,destLong,sourceTime,destTime;
+                        if(results[0][1] === null && results[1][1] === null){
+                            AsyncStorage.multiSet([['sourceLat',`${currentLat}`], ['sourceLong', `${currentLong}`], ['sourceTime', currentTime] ],
+                            (err, results) => {
+                                if(err){
+                                    Toast.show('Error in ils-1');
+                                }
+                            });
+                        }else{
+                            if(results[2][1] !== null && results[3][1] !== null){
+                                sourceLat = parseFloat(results[2][1]);
+                                sourceLong = parseFloat(results[3][1]);
+                                sourceTime =  results[5][1];
+                            }else{
+                                sourceLat = parseFloat(results[0][1]);
+                                sourceLong = parseFloat(results[1][1]);
+                                sourceTime =  results[4][1];
+                            }
+                            destLat = currentLat;
+                            destLong = currentLong;
+                            destTime = currentTime;
+                            this.userTrackHistoryObj = {
+                                loginID: parseInt(results[6][1]),
+                                sourceLat: sourceLat,
+                                sourceLong: sourceLong,
+                                destLat: destLat,
+                                destLong: destLong,
+                                startTime: sourceTime,
+                                endTime: destTime,
+                            }
+                            this.props.userTrackHistory(this.userTrackHistoryObj);
+                        }
+                    }
+                });
+            }, (error) => {
+                Toast.show('Error in getting user track details');
+            });
+    }, 60000);
 
     static navigatorStyle = {
         statusBarTextColorScheme: 'dark',
@@ -159,6 +200,20 @@ class HomeScreen extends Component{
             }else if(!nextProps.successStatTrip){
                 Toast.show(`Error in connection. Check the details and try again`);
             }
+        }
+
+        if(nextProps.userTrackHistoryStatus){
+            console.log(`receee`);
+            console.log(JSON.stringify(this.userTrackHistoryObj));
+            AsyncStorage.multiSet([['sourceLat',`${this.userTrackHistoryObj.sourceLat}`], 
+            ['sourceLong', `${this.userTrackHistoryObj.sourceLong}`], ['sourceTime', this.userTrackHistoryObj.sourceTime] ,
+            ['destLat',`${this.userTrackHistoryObj.destLat}`], ['destLong', `${this.userTrackHistoryObj.destLong}`] ,
+            ['destTime',this.userTrackHistoryObj.destTime]],
+                (err, results) => {
+                    if(err){
+                        Toast.show(`err : ${err}`);
+                    }
+                });
         }
     }
 
@@ -448,7 +503,8 @@ const mapDispatchToProps = dispatch => {
         onStartTrip : (alreadyExists, successStatTrip, startTripSubmit) => dispatch(onStartTrip(alreadyExists, successStatTrip, startTripSubmit)),
         logout : () => dispatch(logOut()),
         onLogOut : logout => dispatch(validatedLogin(logout)),
-        setAlreadyExistsState: () => dispatch(setAlreadyExistsState(false))
+        setAlreadyExistsState: () => dispatch(setAlreadyExistsState(false)),
+        userTrackHistory: userTrackObj => dispatch(userTrackHistory(userTrackObj))
     }
 }
 
@@ -458,7 +514,8 @@ const maptStateToProps = state => {
         dismissModal: state.trip.dismissModal,
         startTripSubmitState : state.user.startTripSubmit,
         successStatTrip: state.user.successStatTrip,
-        alreadyExists: state.user.alreadyExists
+        alreadyExists: state.user.alreadyExists,
+        userTrackHistoryStatus: state.user.userTrackHistorystatus
     }
 }
 

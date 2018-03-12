@@ -6,7 +6,6 @@ const startTrip = (req,res,conn, responseObj, googleMaps) => {
     const body = req.body;
 
     checkForMultiLogin(conn, body.loginID).then(alreadyExists => {
-        console.log(`alreadyExists ${alreadyExists}`);
         if(alreadyExists){
             res.status(403).json(`User Exists`);
         }else{
@@ -14,11 +13,13 @@ const startTrip = (req,res,conn, responseObj, googleMaps) => {
         
         conn.query(sql, (err, result) => {
             if(err){
+                console.log(`err1 ${err}`);
                 res.status(501).json(err);
             }else{
                 sql = `select TripID from ${databaseConfig.databaseName}.${databaseConfig.tableNames.TripHistory} where LoginID = ${body.loginID} and StartTime = '${body.startTime}'`;
                 conn.query(sql, (err, result) => {
                     if(err){
+                        console.log(`err2 ${err}`);
                         res.status(501).json(err);
                     }else{
                         responseObj.message = 'Trip Started Successfully';
@@ -29,6 +30,7 @@ const startTrip = (req,res,conn, responseObj, googleMaps) => {
                             latlng: [body.lat, body.long],
                         },(error, address) => {
                             if(error){
+                                console.log(`err2 ${JSON.stringify(error)}`);
                                 res.status(501).json(error);
                             }else{
                                 if(address.json.results === null){
