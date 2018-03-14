@@ -25,10 +25,27 @@ import Toast from 'react-native-simple-toast';
 import { logOut, validatedLogin, startTrip, onStartTrip,setAlreadyExistsState, userTrackHistory } from '../../store/actions/index';
 import { Navigation } from 'react-native-navigation';
 
+BackgroundTimer.setTimeout(() => {
+    navigator.geolocation.getCurrentPosition(
+        (position) => {
+            let currentLat = position.coords.latitude;
+            let currentLong = position.coords.longitude;
+            let currentTime = moment(new Date().getTime()).format('DD-MM-YYYY   hh:mm:ss a');
+            AsyncStorage.multiSet([['sourceLat',`${currentLat}`], ['sourceLong', `${currentLong}`], ['sourceTime', currentTime] ],
+            (err, results) => {
+                if(err){
+                    Toast.show('Error in ils-1');
+                    console.log(`in error -1  part----------`);
+                }
+            });
+    });
+},0);
+
+
 class HomeScreen extends Component{
-    userTrackHistoryObj;
 
     intervalId = BackgroundTimer.setInterval(() => {
+        let self = this;
         navigator.geolocation.getCurrentPosition(
             (position) => {
                 AsyncStorage.multiGet(['sourceLat', 'sourceLong', 'destLat', 'destLong','sourceTime','destTime','loginid'], 
@@ -39,15 +56,7 @@ class HomeScreen extends Component{
                     if(err){
                         Toast.show('Error in getting user track details');
                     }else{
-                        let sourceLat,sourceLong,destLat,destLong,sourceTime,destTime;
-                        if(results[0][1] === null && results[1][1] === null){
-                            AsyncStorage.multiSet([['sourceLat',`${currentLat}`], ['sourceLong', `${currentLong}`], ['sourceTime', currentTime] ],
-                            (err, results) => {
-                                if(err){
-                                    Toast.show('Error in ils-1');
-                                }
-                            });
-                        }else{
+                            let sourceLat,sourceLong,destLat,destLong,sourceTime,destTime;
                             if(results[2][1] !== null && results[3][1] !== null){
                                 sourceLat = parseFloat(results[2][1]);
                                 sourceLong = parseFloat(results[3][1]);
@@ -60,7 +69,7 @@ class HomeScreen extends Component{
                             destLat = currentLat;
                             destLong = currentLong;
                             destTime = currentTime;
-                            this.userTrackHistoryObj = {
+                            let userTrackHistoryObj = {
                                 loginID: parseInt(results[6][1]),
                                 sourceLat: sourceLat,
                                 sourceLong: sourceLong,
@@ -69,14 +78,15 @@ class HomeScreen extends Component{
                                 startTime: sourceTime,
                                 endTime: destTime,
                             }
-                            this.props.userTrackHistory(this.userTrackHistoryObj);
-                        }
+                            if(userTrackHistoryObj.startTime !== userTrackHistoryObj.endTime && userTrackHistoryObj.loginID !==null){
+                                self.props.userTrackHistory(userTrackHistoryObj);
+                            }
                     }
                 });
             }, (error) => {
                 Toast.show('Error in getting user track details');
             });
-    }, 60000);
+    }, 300000);
 
     static navigatorStyle = {
         statusBarTextColorScheme: 'dark',
@@ -200,20 +210,6 @@ class HomeScreen extends Component{
             }else if(!nextProps.successStatTrip){
                 Toast.show(`Error in connection. Check the details and try again`);
             }
-        }
-
-        if(nextProps.userTrackHistoryStatus){
-            console.log(`receee`);
-            console.log(JSON.stringify(this.userTrackHistoryObj));
-            AsyncStorage.multiSet([['sourceLat',`${this.userTrackHistoryObj.sourceLat}`], 
-            ['sourceLong', `${this.userTrackHistoryObj.sourceLong}`], ['sourceTime', this.userTrackHistoryObj.sourceTime] ,
-            ['destLat',`${this.userTrackHistoryObj.destLat}`], ['destLong', `${this.userTrackHistoryObj.destLong}`] ,
-            ['destTime',this.userTrackHistoryObj.destTime]],
-                (err, results) => {
-                    if(err){
-                        Toast.show(`err : ${err}`);
-                    }
-                });
         }
     }
 
@@ -515,7 +511,6 @@ const maptStateToProps = state => {
         startTripSubmitState : state.user.startTripSubmit,
         successStatTrip: state.user.successStatTrip,
         alreadyExists: state.user.alreadyExists,
-        userTrackHistoryStatus: state.user.userTrackHistorystatus
     }
 }
 

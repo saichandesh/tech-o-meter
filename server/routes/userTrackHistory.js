@@ -3,11 +3,15 @@ const checkForMultiLogin = require('./multiLogin');
 
 const userTrackHistory = (req,res,conn, responseObj, googleMapsClient) => {
     const body = req.body;
-    console.log(body);
     checkForMultiLogin(conn, body.loginID).then(alreadyExists => {
         if(alreadyExists){
             res.status(403).json(`User Exists`);
         }else{
+            if(body.loginID === null){
+                responseObj.message = 'Login Id is null';
+                responseObj.data = {}
+                res.json(responseObj);
+            }
             let origin = `${body.sourceLat},${body.sourceLong}`;
             let dest = `${body.destLat},${body.destLong}`;
         
@@ -18,9 +22,9 @@ const userTrackHistory = (req,res,conn, responseObj, googleMapsClient) => {
                 units: 'metric'
             }, (err, result) => {
                 if(err){
+                    console.log(`err + ${err}`);
                     res.status(501).json(err);
                 }else{
-                    console.log(`distance  ${result.json.rows[0].elements[0].distance.value /1000}`);
                     let totalDistance = result.json.rows[0].elements[0].distance.value /1000;
         
                     sql = `insert into ${databaseConfig.databaseName}.${databaseConfig.tableNames.UserTrackHistory}(LoginID, SourceLat, SourceLong, DestLat, DestLong, TotalDistance, StartTime, EndTime) values (${body.loginID}, ${body.sourceLat}, ${body.sourceLong}, ${body.destLat}, ${body.destLong}, ${totalDistance}, '${body.startTime}', '${body.endTime}')`

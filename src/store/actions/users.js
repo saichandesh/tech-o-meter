@@ -97,16 +97,8 @@ export const logOut = () => {
     }
 }
 
-export const updateUserTrackHistoryStatus = status => {
-    return{
-        type: UPDATE_USER_TRACK_HISTORY,
-        status: status
-    }
-}
-
 export const userTrackHistory = (userTrackObj) => {
     return dispatch => {
-        dispatch(updateUserTrackHistoryStatus(null));
         fetch(`${url}/usertrackhistory`, {
             method: 'POST',
             headers: {
@@ -121,14 +113,19 @@ export const userTrackHistory = (userTrackObj) => {
                 }else if(res.status === 403){
                     dispatch(onStartTrip(true, null, null));
                 }else{
-                    dispatch(updateUserTrackHistoryStatus(true));
+                    AsyncStorage.multiSet([['sourceLat',`${userTrackObj.sourceLat}`], 
+                    ['sourceLong', `${userTrackObj.sourceLong}`], ['sourceTime', userTrackObj.startTime] ,
+                    ['destLat',`${userTrackObj.destLat}`], ['destLong', `${userTrackObj.destLong}`] ,
+                    ['destTime',userTrackObj.endTime]],
+                        (err, results) => {
+                            if(err){
+                                Toast.show(`err : ${err}`);
+                            }
+                        });
                 }
-            }else{
-                dispatch(updateUserTrackHistoryStatus(false));
             }
         }).catch( error => {
            Toast.show('Error in tracking...');
-           dispatch(updateUserTrackHistoryStatus(false));
         });
     }
         

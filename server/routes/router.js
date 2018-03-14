@@ -11,15 +11,6 @@ const endTrip = require('./endTrip');
 const tripHistory = require('./tripHistory');
 const userTrackHistory = require('./userTrackHistory');
 
-// // Google Distance Matrix Api
-// const googleDistanceMatrixApiClient = require('@google/maps').createClient({
-//     key: process.env.DISTANCEMATRIXAPIKEY
-// });
-
-// const googleGeoLocationApiClient = require('@google/maps').createClient({
-//     key: process.env.GEOLOCATIONAPIKEY
-// });
-
 const googleMapApiClient = require('@google/maps').createClient({
     key: process.env.KEY
 });
